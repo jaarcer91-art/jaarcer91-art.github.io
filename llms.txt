@@ -1,0 +1,26 @@
+# Jose Arce
+
+> Jose Arce is a two-time founder and product designer in Miami. His first company, Mone, let merchants across Latin America get paid by QR code, online and in person. He designed every screen of it himself, and Mone was acquired. He then spent four years at OKX and Okcoin designing how millions of people buy, earn and pay with digital dollars. Today he is building Olie, three apps for holding and moving wealth.
+
+Jose Arce (also Jose Arce Rivera) is a founder and product designer based in Miami, Florida. He is a co-founder of Olie.
+
+## Career
+
+- Olie, Co-founder (2025 to today, Miami). A private home for the next generation of wealth. Three apps behind one front door: Olie Vault to protect what you built, Olie Orbit to pay your friends and Olie Business to pay the world.
+- OKX, Global Product Designer (2022 to 2025, San Francisco Bay Area, remote). Four years designing how people around the world buy, earn and pay with digital dollars at one of the largest exchanges in the world.
+  - Earn: led the team and the complete redesign, and created Lira Boost, a Turkey-only product that earns overnight interest on idle lira.
+  - Pay mode: designed Rewards for OKX Pay, the payments and cashback ecosystem.
+  - Token recommendation: a discovery engine that runs across the whole app.
+  - Buy, sell and convert: launched OKX Lite, the first app made for everyday buyers, and rebuilt peer to peer trading.
+- Okcoin, Senior Product Designer, Payments (2022, San Francisco Bay Area). Payments for a regulated exchange, designed around security and compliance.
+- Mone, Co-founder (2018 to 2022, Miami). Payments for merchants across Latin America: QR codes, payment links and in person. The only designer of the web, iOS and Android apps, the brand and every piece of marketing. Acquired.
+- AAMC, Product (2017 to 2018, Washington, remote). Redesigned the platforms every medical student in the United States passes through: VSLO, MSAR and ERAS, plus the admin tools behind them.
+
+## Links
+
+- [Home](https://josearce.com/): who Jose is, his track record and writing
+- [How I build products](https://josearce.com/product/): Jose's product work and method, from first sketch to shipped apps
+- [Olie](https://oliecrypto.com): the company Jose is building
+- [Olie newsroom](https://oliecrypto.com/newsroom): letters and launches from Olie
+- [LinkedIn](https://www.linkedin.com/in/jose-arce-rivera/)
+- [X](https://x.com/josearcerivera)
