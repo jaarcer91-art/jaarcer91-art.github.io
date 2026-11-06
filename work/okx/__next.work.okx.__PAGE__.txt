@@ -1,0 +1,68 @@
+1:"$Sreact.fragment"
+3:"/_next/static/chunks/42onvq6nokjl2.js"
+4:I[39756,["$3"],"default"]
+5:I[37457,["$3"],"default"]
+9:"/_next/static/chunks/3o_ecwsuez208.js"
+a:"/_next/static/chunks/0ro3tzq2_eihn.js"
+b:I[58505,["$9","$a"],"AccessGate"]
+11:"/_next/static/chunks/14t-hdhj2i8pb.js"
+12:"/_next/static/chunks/0tvgdgf41qzc5.js"
+13:"/_next/static/chunks/01j--8du6rkp5.js"
+14:I[61065,["$9","$a","$11","$12","$13"],"OkxCase"]
+1a:"ViewportBoundary"
+1b:I[97367,["$3"],"$1a"]
+1c:"MetadataBoundary"
+1d:I[97367,["$3"],"$1c"]
+1e:"$Sreact.suspense"
+:HL["/_next/static/chunks/1iet602s7irzo.css","style"]
+:HL["/_next/static/chunks/3-optw3j3yph6.css","style"]
+:HL["/_next/static/chunks/2hw86vbweukg3.css","style"]
+2:T4b1,{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://josearce.com/#person","name":"Jose Arce","alternateName":"Jose Arce Rivera","url":"https://josearce.com/","image":"https://josearce.com/img/jose.jpg","jobTitle":"Product Lead","description":"Jose Arce is a two-time founder and product lead in Miami. He designs, builds and ships financial products end to end. His first company, Mone, let merchants across Latin America get paid by QR code and was acquired. At OKX he led product design for Earn, Pay and Buy, used by more than 100 million people. At Olie he built three live apps for holding and moving money, and ran product, partnerships, regulators and country launches.","worksFor":{"@type":"Organization","name":"Olie","url":"https://oliecrypto.com"},"homeLocation":{"@type":"Place","name":"Miami, Florida"},"knowsAbout":["Product management","Product design","Fintech","Stablecoins","Payments","AI wealth management"],"sameAs":["https://www.linkedin.com/in/jose-arce-rivera/","https://x.com/josearcerivera"]},{"@type":"WebSite","@id":"https://josearce.com/#website","url":"https://josearce.com/","name":"Jose Arce","publisher":{"@id":"https://josearce.com/#person"}}]}7:X
+f:X
+f:C
+10:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[["$","$L14",null,{}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/2hw86vbweukg3.css","precedence":"next"}],"$L15","$L16","$L17"],"$L18"]}],"p":"$@19","v":null,"s":"$7"}}]]
+d:[["children",{"s":"okx","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]]}],"p":"$@e","v":"$f","s":"$7"},"c":"$Q10"}]]
+8:[["children",{"s":"work","h":96,"d":{"r":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/_next/static/chunks/3o_ecwsuez208.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/0ro3tzq2_eihn.js","async":true}]],["$","$Lb",null,{"children":["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]}]]}],"p":"$@c","v":null,"s":"$7"},"c":"$Qd"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/1iet602s7irzo.css","precedence":"next"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/3-optw3j3yph6.css","precedence":"next"}]],["$","html",null,{"lang":"en","className":"LINzvG_variable antialiased","children":[["$","head",null,{"children":[["$","meta",null,{"httpEquiv":"Content-Security-Policy","content":"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests"}],["$","meta",null,{"name":"referrer","content":"strict-origin-when-cross-origin"}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"$2"}}]]}],["$","body",null,{"className":"min-h-full font-sans","children":["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]}]]}]]}],"p":"$@6","v":null,"s":"$7"},"c":"$Q8"},"h":{"r":["$","$1","h",{"children":[null,["$","$L1b",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L1d",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$1e",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"OKX, 2022 to 2025 | Jose Arce"}],["$","meta","1",{"name":"description","content":"Jose Arce's work at Okcoin and OKX: payments, the first Simple mode, Token recommendation, Pay Rewards, the Earn redesign, Lira Boost and research in Latin America."}],"$L1f","$L20","$L21","$L22","$L23","$L24","$L25","$L26","$L27","$L28","$L29","$L2a","$L2b","$L2c","$L2d","$L2e","$L2f","$L30","$L31","$L32","$L33","$L34","$L35","$L36","$L37"]}]}],null]}],"$L38"]}],"p":"$@39","v":null,"s":"$7"}},"a":"$@3a","u":"$@3b","b":"2vJa5QqJu6ufcXpY-W4jQ"}
+3c:I[97367,["$3"],"OutletBoundary"]
+3e:I[27201,["$3"],"IconMark"]
+15:["$","script","script-0",{"src":"/_next/static/chunks/14t-hdhj2i8pb.js","async":true}]
+16:["$","script","script-1",{"src":"/_next/static/chunks/0tvgdgf41qzc5.js","async":true}]
+17:["$","script","script-2",{"src":"/_next/static/chunks/01j--8du6rkp5.js","async":true}]
+18:["$","$L3c",null,{"children":["$","$1e",null,{"name":"Next.MetadataOutlet","children":"$@3d"}]}]
+1f:["$","meta","2",{"name":"application-name","content":"Jose Arce"}]
+20:["$","link","3",{"rel":"author","href":"https://josearce.com/"}]
+21:["$","meta","4",{"name":"author","content":"Jose Arce"}]
+22:["$","meta","5",{"name":"creator","content":"Jose Arce"}]
+23:["$","meta","6",{"name":"robots","content":"noindex, nofollow"}]
+24:["$","link","7",{"rel":"canonical","href":"https://josearce.com/work/okx/"}]
+25:["$","meta","8",{"property":"og:title","content":"OKX, 2022 to 2025 | Jose Arce"}]
+26:["$","meta","9",{"property":"og:description","content":"Jose Arce's work at Okcoin and OKX: payments, the first Simple mode, Token recommendation, Pay Rewards, the Earn redesign, Lira Boost and research in Latin America."}]
+27:["$","meta","10",{"property":"og:url","content":"https://josearce.com/work/okx/"}]
+28:["$","meta","11",{"property":"og:site_name","content":"Jose Arce"}]
+29:["$","meta","12",{"property":"og:locale","content":"en_US"}]
+2a:["$","meta","13",{"property":"og:type","content":"article"}]
+2b:["$","meta","14",{"name":"twitter:card","content":"summary_large_image"}]
+2c:["$","meta","15",{"name":"twitter:creator","content":"@josearcerivera"}]
+2d:["$","meta","16",{"name":"twitter:title","content":"OKX, 2022 to 2025 | Jose Arce"}]
+2e:["$","meta","17",{"name":"twitter:description","content":"Jose Arce's work at Okcoin and OKX: payments, the first Simple mode, Token recommendation, Pay Rewards, the Earn redesign, Lira Boost and research in Latin America."}]
+2f:["$","meta","18",{"name":"twitter:image","content":"https://josearce.com/twitter-image.jpg?twitter-image.14rtu92o7jk6i.jpg"}]
+30:["$","meta","19",{"name":"twitter:image:alt","content":"Jose Arce, product lead and builder in Miami"}]
+31:["$","meta","20",{"name":"twitter:image:type","content":"image/jpeg"}]
+32:["$","meta","21",{"name":"twitter:image:width","content":"1200"}]
+33:["$","meta","22",{"name":"twitter:image:height","content":"630"}]
+34:["$","link","23",{"rel":"icon","href":"/favicon.ico?favicon.2mmvf9vhlc10n.ico","sizes":"48x48","type":"image/x-icon"}]
+35:["$","link","24",{"rel":"icon","href":"/icon.png?icon.2vb134ip13he6.png","sizes":"192x192","type":"image/png"}]
+36:["$","link","25",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.0zugu82n5by8z.png","sizes":"180x180","type":"image/png"}]
+37:["$","$L3e","26",{}]
+38:["$","meta",null,{"name":"next-size-adjust","content":""}]
+7:300
+3d:null
+3b:true
+7:C
+3a:0
+e:"$undefined"
+c:"$undefined"
+6:"$undefined"
+39:"$undefined"
+19:"$undefined"

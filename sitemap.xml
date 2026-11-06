@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://josearce.com/</loc>
+<lastmod>2026-11-06T18:58:04.653Z</lastmod>
+<changefreq>monthly</changefreq>
+<priority>1</priority>
+</url>
+<url>
+<loc>https://josearce.com/product/</loc>
+<lastmod>2026-11-06T18:58:04.654Z</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://josearce.com/films/</loc>
+<lastmod>2026-11-06T00:00:00.000Z</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
+</url>
+<url>
+<loc>https://josearce.com/writing/stablecoin-interest/</loc>
+<lastmod>2026-11-04T00:00:00.000Z</lastmod>
+<changefreq>yearly</changefreq>
+<priority>0.9</priority>
+</url>
+<url>
+<loc>https://josearce.com/writing/stablecoins-pix-moment/</loc>
+<lastmod>2026-10-29T00:00:00.000Z</lastmod>
+<changefreq>yearly</changefreq>
+<priority>0.9</priority>
+</url>
+</urlset>

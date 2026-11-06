@@ -1,0 +1,60 @@
+1:"$Sreact.fragment"
+3:"/_next/static/chunks/42onvq6nokjl2.js"
+4:I[39756,["$3"],"default"]
+5:I[37457,["$3"],"default"]
+10:"ViewportBoundary"
+11:I[97367,["$3"],"$10"]
+12:"MetadataBoundary"
+13:I[97367,["$3"],"$12"]
+14:"$Sreact.suspense"
+:HL["/_next/static/chunks/1iet602s7irzo.css","style"]
+:HL["/_next/static/chunks/3-optw3j3yph6.css","style"]
+2:T4b1,{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://josearce.com/#person","name":"Jose Arce","alternateName":"Jose Arce Rivera","url":"https://josearce.com/","image":"https://josearce.com/img/jose.jpg","jobTitle":"Product Lead","description":"Jose Arce is a two-time founder and product lead in Miami. He designs, builds and ships financial products end to end. His first company, Mone, let merchants across Latin America get paid by QR code and was acquired. At OKX he led product design for Earn, Pay and Buy, used by more than 100 million people. At Olie he built three live apps for holding and moving money, and ran product, partnerships, regulators and country launches.","worksFor":{"@type":"Organization","name":"Olie","url":"https://oliecrypto.com"},"homeLocation":{"@type":"Place","name":"Miami, Florida"},"knowsAbout":["Product management","Product design","Fintech","Stablecoins","Payments","AI wealth management"],"sameAs":["https://www.linkedin.com/in/jose-arce-rivera/","https://x.com/josearcerivera"]},{"@type":"WebSite","@id":"https://josearce.com/#website","url":"https://josearce.com/","name":"Jose Arce","publisher":{"@id":"https://josearce.com/#person"}}]}7:X
+a:X
+a:C
+b:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":"$0:t:t:d:r:props:children:1:props:children:1:props:children:props:notFound:0:1:props:style","children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],"$Lc","$Ld"]}]}]],null,"$Le"]}],"p":"$@f","v":null,"s":"$7"}}]]
+8:[["children",{"s":"/_not-found","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]]}],"p":"$@9","v":"$a","s":"$7"},"c":"$Qb"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/1iet602s7irzo.css","precedence":"next"}],["$","link","1",{"rel":"stylesheet","href":"/_next/static/chunks/3-optw3j3yph6.css","precedence":"next"}]],["$","html",null,{"lang":"en","className":"LINzvG_variable antialiased","children":[["$","head",null,{"children":[["$","meta",null,{"httpEquiv":"Content-Security-Policy","content":"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests"}],["$","meta",null,{"name":"referrer","content":"strict-origin-when-cross-origin"}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"$2"}}]]}],["$","body",null,{"className":"min-h-full font-sans","children":["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]}]]}]]}],"p":"$@6","v":null,"s":"$7"},"c":"$Q8"},"h":{"r":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L11",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L13",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$14",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Jose Arce"}],["$","meta","1",{"name":"description","content":"Product lead and builder in Miami."}],["$","meta","2",{"name":"application-name","content":"Jose Arce"}],["$","link","3",{"rel":"author","href":"https://josearce.com/"}],["$","meta","4",{"name":"author","content":"Jose Arce"}],"$L15","$L16","$L17","$L18","$L19","$L1a","$L1b","$L1c","$L1d","$L1e","$L1f","$L20","$L21","$L22","$L23","$L24","$L25","$L26","$L27","$L28","$L29","$L2a","$L2b","$L2c","$L2d","$L2e","$L2f","$L30"]}]}],null]}],"$L31"]}],"p":"$@32","v":null,"s":"$7"}},"a":"$@33","u":"$@34","b":"2vJa5QqJu6ufcXpY-W4jQ"}
+35:I[97367,["$3"],"OutletBoundary"]
+37:I[27201,["$3"],"IconMark"]
+c:["$","h1",null,{"className":"next-error-h1","style":"$0:t:t:d:r:props:children:1:props:children:1:props:children:props:notFound:0:1:props:children:props:children:1:props:style","children":404}]
+d:["$","div",null,{"style":"$0:t:t:d:r:props:children:1:props:children:1:props:children:props:notFound:0:1:props:children:props:children:2:props:style","children":["$","h2",null,{"style":"$0:t:t:d:r:props:children:1:props:children:1:props:children:props:notFound:0:1:props:children:props:children:2:props:children:props:style","children":"This page could not be found."}]}]
+e:["$","$L35",null,{"children":["$","$14",null,{"name":"Next.MetadataOutlet","children":"$@36"}]}]
+15:["$","meta","5",{"name":"creator","content":"Jose Arce"}]
+16:["$","meta","6",{"name":"robots","content":"index, follow"}]
+17:["$","meta","7",{"name":"googlebot","content":"index, follow, max-image-preview:large, max-snippet:-1"}]
+18:["$","meta","8",{"property":"og:title","content":"Jose Arce"}]
+19:["$","meta","9",{"property":"og:description","content":"Product lead and builder in Miami."}]
+1a:["$","meta","10",{"property":"og:site_name","content":"Jose Arce"}]
+1b:["$","meta","11",{"property":"og:locale","content":"en_US"}]
+1c:["$","meta","12",{"property":"og:image","content":"https://josearce.com/opengraph-image.jpg?opengraph-image.14rtu92o7jk6i.jpg"}]
+1d:["$","meta","13",{"property":"og:image:type","content":"image/jpeg"}]
+1e:["$","meta","14",{"property":"og:image:width","content":"1200"}]
+1f:["$","meta","15",{"property":"og:image:height","content":"630"}]
+20:["$","meta","16",{"property":"og:image:alt","content":"Jose Arce, product lead and builder in Miami"}]
+21:["$","meta","17",{"property":"og:type","content":"profile"}]
+22:["$","meta","18",{"property":"profile:first_name","content":"Jose"}]
+23:["$","meta","19",{"property":"profile:last_name","content":"Arce"}]
+24:["$","meta","20",{"name":"twitter:card","content":"summary_large_image"}]
+25:["$","meta","21",{"name":"twitter:creator","content":"@josearcerivera"}]
+26:["$","meta","22",{"name":"twitter:title","content":"Jose Arce"}]
+27:["$","meta","23",{"name":"twitter:description","content":"Product lead and builder in Miami."}]
+28:["$","meta","24",{"name":"twitter:image","content":"https://josearce.com/twitter-image.jpg?twitter-image.14rtu92o7jk6i.jpg"}]
+29:["$","meta","25",{"name":"twitter:image:alt","content":"Jose Arce, product lead and builder in Miami"}]
+2a:["$","meta","26",{"name":"twitter:image:type","content":"image/jpeg"}]
+2b:["$","meta","27",{"name":"twitter:image:width","content":"1200"}]
+2c:["$","meta","28",{"name":"twitter:image:height","content":"630"}]
+2d:["$","link","29",{"rel":"icon","href":"/favicon.ico?favicon.2mmvf9vhlc10n.ico","sizes":"48x48","type":"image/x-icon"}]
+2e:["$","link","30",{"rel":"icon","href":"/icon.png?icon.2vb134ip13he6.png","sizes":"192x192","type":"image/png"}]
+2f:["$","link","31",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.0zugu82n5by8z.png","sizes":"180x180","type":"image/png"}]
+30:["$","$L37","32",{}]
+31:["$","meta",null,{"name":"next-size-adjust","content":""}]
+7:300
+36:null
+34:true
+7:C
+33:0
+9:"$undefined"
+6:"$undefined"
+32:"$undefined"
+f:"$undefined"
