@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Below your limit it acts</title>
+<link href="fonts.css" rel="stylesheet">
+<style>
+  /* The Olie deck's agents slide (page 6), its animation only, cropped to the
+     drawing. The page around it carries the headline. */
+  html, body { margin: 0; height: 100%; background: #080605; overflow: hidden; }
+  .stage { position: relative; width: 100%; height: 100%; overflow: hidden; }
+  .slide { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; transform-origin: 0 0; }
+  canvas { position: absolute; inset: 0; width: 1280px; height: 720px; display: block; }
+</style>
+</head>
+<body>
+<div class="stage" id="stage"><div class="slide" id="slide"><canvas data-agents="once"></canvas></div></div>
+<script>
+  // Show the slide from x 470 to 1270, y 180 to 610 (the field, without the two cards shown above it) (the drawing), scaled to fit.
+  (function () {
+    var st = document.getElementById('stage'), sl = document.getElementById('slide');
+    var X0 = 486, Y0 = 180, W = 794;
+    var fit = function () { var s = st.clientWidth / W; sl.style.transform = 'scale(' + s + ') translate(' + (-X0) + 'px,' + (-Y0) + 'px)'; };
+    addEventListener('resize', fit); fit();
+  })();
+</script>
+<script src="agents-slide.js"></script>
+</body>
+</html>

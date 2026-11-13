@@ -1,0 +1,22 @@
+2:"$Sreact.fragment"
+3:"/_next/static/chunks/2l10ual20zt4j.js"
+4:I[4345,["$3"],"LandingOne"]
+5:"/_next/static/chunks/42onvq6nokjl2.js"
+6:I[97367,["$5"],"OutletBoundary"]
+7:"$Sreact.suspense"
+b:"ViewportBoundary"
+c:I[97367,["$5"],"$b"]
+d:"MetadataBoundary"
+e:I[97367,["$5"],"$d"]
+f:I[27201,["$5"],"IconMark"]
+:HL["/_next/static/chunks/2rcggp2pb6k9h.css","style"]
+a:X
+1:[["children",{"s":"__PAGE__","h":128,"d":{"r":["$","$2","c",{"children":[["$","$L4",null,{}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/2rcggp2pb6k9h.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/2l10ual20zt4j.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"p":"$@9","v":null,"s":"$a"}}]]
+0:{"t":{"t":{"s":"","h":16,"c":"$Q1"},"h":{"r":["$","$2","h",{"children":[null,["$","$Lc",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$Le",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$7",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Jose Arce | Product lead, ex-OKX, Miami"}],["$","meta","1",{"name":"description","content":"Jose Arce is a two-time founder and product lead in Miami. He is building Olie, co-founded Mone (acquired) and spent four years designing products at OKX."}],["$","meta","2",{"name":"application-name","content":"Jose Arce"}],["$","link","3",{"rel":"author","href":"https://josearce.com/"}],["$","meta","4",{"name":"author","content":"Jose Arce"}],["$","meta","5",{"name":"creator","content":"Jose Arce"}],["$","meta","6",{"name":"robots","content":"index, follow"}],["$","meta","7",{"name":"googlebot","content":"index, follow, max-image-preview:large, max-snippet:-1"}],["$","link","8",{"rel":"canonical","href":"https://josearce.com/"}],["$","meta","9",{"property":"og:title","content":"Jose Arce | Product lead, ex-OKX, Miami"}],["$","meta","10",{"property":"og:description","content":"Jose Arce is a two-time founder and product lead in Miami. He is building Olie, co-founded Mone (acquired) and spent four years designing products at OKX."}],["$","meta","11",{"property":"og:url","content":"https://josearce.com/"}],["$","meta","12",{"property":"og:site_name","content":"Jose Arce"}],["$","meta","13",{"property":"og:locale","content":"en_US"}],["$","meta","14",{"property":"og:image","content":"https://josearce.com/opengraph-image.jpg?opengraph-image.14rtu92o7jk6i.jpg"}],["$","meta","15",{"property":"og:image:type","content":"image/jpeg"}],["$","meta","16",{"property":"og:image:width","content":"1200"}],["$","meta","17",{"property":"og:image:height","content":"630"}],["$","meta","18",{"property":"og:image:alt","content":"Jose Arce, product lead and builder in Miami"}],["$","meta","19",{"property":"og:type","content":"profile"}],["$","meta","20",{"property":"profile:first_name","content":"Jose"}],["$","meta","21",{"property":"profile:last_name","content":"Arce"}],["$","meta","22",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","23",{"name":"twitter:creator","content":"@josearcerivera"}],["$","meta","24",{"name":"twitter:title","content":"Jose Arce | Product lead, ex-OKX, Miami"}],["$","meta","25",{"name":"twitter:description","content":"Jose Arce is a two-time founder and product lead in Miami. He is building Olie, co-founded Mone (acquired) and spent four years designing products at OKX."}],["$","meta","26",{"name":"twitter:image","content":"https://josearce.com/twitter-image.jpg?twitter-image.14rtu92o7jk6i.jpg"}],["$","meta","27",{"name":"twitter:image:alt","content":"Jose Arce, product lead and builder in Miami"}],["$","meta","28",{"name":"twitter:image:type","content":"image/jpeg"}],["$","meta","29",{"name":"twitter:image:width","content":"1200"}],["$","meta","30",{"name":"twitter:image:height","content":"630"}],["$","link","31",{"rel":"icon","href":"/favicon.ico?favicon.2mmvf9vhlc10n.ico","sizes":"48x48","type":"image/x-icon"}],["$","link","32",{"rel":"icon","href":"/icon.png?icon.2vb134ip13he6.png","sizes":"192x192","type":"image/png"}],["$","link","33",{"rel":"apple-touch-icon","href":"/apple-icon.png?apple-icon.0zugu82n5by8z.png","sizes":"180x180","type":"image/png"}],["$","$Lf","34",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@10","v":null,"s":"$a"}},"a":"$@11","u":"$@12","b":"EIWrBciCOh0VzsSHJlDzK"}
+8:null
+12:true
+a:300
+a:C
+11:0
+10:"$undefined"
+9:"$undefined"
