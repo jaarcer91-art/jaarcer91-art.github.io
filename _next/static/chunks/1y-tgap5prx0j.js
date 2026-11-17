@@ -1,0 +1,1 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,47721,o=>{"use strict";var t=o.i(43476),e=o.i(71645);o.s(["StoryV3",0,function(){return(0,e.useEffect)(()=>{window.location.replace("/work/olie-story/v3/")},[]),(0,t.jsx)("div",{className:"min-h-svh bg-black"})}])}]);

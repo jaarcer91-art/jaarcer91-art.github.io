@@ -1,0 +1,46 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=block" rel="stylesheet">
+<body><div id="stage"></div>
+<style>
+.sc{position:absolute;overflow:hidden;background:#000;will-change:transform}
+.sc img{display:block;width:100%;height:100%;object-fit:cover;object-position:0 0}
+.sc i{position:absolute;inset:0;background:#000;pointer-events:none}
+.lg{position:absolute;height:22px;width:auto;transform:translateX(-50%)}
+</style>
+<script src="kit.js"></script>
+<script>
+// OLIE VERSION of the three screens (5.6s): the same grey stage and timing as the 1:1 copy. Three
+// screens, black at first, light up together (0.2-0.55); then each is chosen in turn (2.4-4.4) while
+// the other two dim; all fade at the end. Olie Orbit and Olie Vault on phones, Olie Business on a
+// wider screen, because it is used at a desk.
+const stage = boot({ w: 1250, h: 702, scale: 1.6, dur: 5.6, fps: 30 });
+stage.style.background = 'linear-gradient(180deg,#7d7d7d 0%,#5f5f5f 30%,#2a2a2a 75%,#141414 100%)';
+const SH = 505, Y0 = 72;
+const SCR = [
+  { src: 'img/orbit-home.jpg', x: 170, w: 233, r: 24, logo: 'img/olie-orbit-logo.svg' },
+  { src: 'img/vault-transfer.jpg', x: 440, w: 233, r: 24, logo: 'img/olie-vault-logo.svg' },
+  { src: 'img/biz-home.jpg', x: 710, w: 400, r: 12, logo: 'img/olie-business-logo-white.svg' },
+];
+const els = SCR.map((s) => {
+  const d = h('div', { class: 'sc', style: `left:${s.x}px;top:${Y0}px;width:${s.w}px;height:${SH}px;border-radius:${s.r}px` }, stage);
+  const img = h('img', { src: s.src, alt: '' }, d);
+  const veil = h('i', {}, d);
+  const lg = h('img', { class: 'lg', src: s.logo, alt: '', style: `left:${s.x + s.w / 2}px;top:${Y0 + SH + 34}px` }, stage);
+  return { d, img, veil, lg };
+});
+window.ready = Promise.all([fontsReady(), ...$$('img').map((i) => i.decode().catch(() => {}))]);
+window.setTime = (t) => {
+  const on = seg(t, 0.2, 0.55, E.o3) * (1 - seg(t, 5.3, 5.6, E.lin));
+  // which screen is chosen: none, then each in turn, then none
+  const pick = (i) => { const a = 2.4 + i * 0.67; return seg(t, a, a + 0.3, E.io3) * (1 - seg(t, a + 0.62, a + 0.92, E.io3)); };
+  const any = Math.max(pick(0), pick(1), pick(2));
+  els.forEach((e, i) => {
+    const p = pick(i), dim = (any - p) * 0.55;
+    e.veil.style.opacity = (1 - on + on * dim).toFixed(3);
+    e.d.style.transform = `translateY(${(-10 * p).toFixed(2)}px) scale(${(1 + 0.03 * p).toFixed(4)})`;
+    e.lg.style.opacity = (seg(t, 0.6, 1.0, E.o3) * (1 - seg(t, 5.3, 5.6, E.lin)) * (1 - dim)).toFixed(3);
+  });
+};
+</script>

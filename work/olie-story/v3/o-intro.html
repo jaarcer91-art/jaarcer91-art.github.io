@@ -1,0 +1,160 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"./lib/three.module.js"}}</script>
+<body><div id="stage"><canvas id="gl"></canvas><canvas id="ov"></canvas><div id="b"><div id="cam"><div id="row"></div></div></div></div>
+<style>
+#gl,#ov{position:absolute;inset:0}
+#b{position:absolute;inset:0;background:#E6E6E6;overflow:hidden}
+#cam{position:absolute;left:0;top:0;width:1250px;height:800px;transform-origin:0 0;will-change:transform}
+#row{position:absolute;top:128px;left:0;display:flex;gap:34px}
+.sc{width:250px;height:543px;border-radius:34px;overflow:hidden;background:#000;flex:none;box-shadow:0 0 0 5px #111}
+.sc canvas,.sc img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+</style>
+<script src="kit.js"></script>
+<script type="module">
+// OLIE VERSION of the line-drawing opener (10.6s), in the manner of the motion system's piece 14.
+// White line drawings on black, hidden edges removed, each one a piece of Olie:
+//   a stack of dollar coins (0-1.4) -> a vault with its dial (1.15-2.6) -> an orbit, a ball with a
+//   ring and a moon (2.35-3.75) -> a globe (3.55-4.8) -> the Olie mark draws itself (4.45-5.3).
+// Then the phone's edges draw down either side of the mark and the grey walls slide in: that frame
+// is exactly the first app screen seen up close, so the handover to the real screens has no cut.
+// The camera pulls back over a row of real Olie screens, drifts, pushes back in, and the walls
+// slide out again so the loop starts on black.
+import * as THREE from 'three';
+const W = 1250, H = 800, CUT = 6.0, WALL = '#E6E6E6', DUR = 10.6;
+const stage = boot({ w: W, h: H, scale: 1.6, dur: DUR, fps: 30 });
+stage.style.background = '#000';
+const renderer = new THREE.WebGLRenderer({ canvas: $('#gl'), antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1.5); renderer.setSize(W, H, false); $('#gl').style.width = W + 'px'; $('#gl').style.height = H + 'px';
+renderer.setClearColor(0x000000, 1);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(27, W / H, 0.1, 100);
+camera.position.set(6.2, 5.0, 6.2); camera.lookAt(0, 0, 0);
+const ov = $('#ov'); ov.width = W * 2; ov.height = H * 2; ov.style.width = W + 'px'; ov.style.height = H + 'px';
+const o = ov.getContext('2d');
+const black = new THREE.MeshBasicMaterial({ color: 0x000000, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 });
+
+// every drawing has its own line material, so it can fade while the next one arrives
+function group() { const g = new THREE.Group(); g.userData.mat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 1 }); scene.add(g); return g; }
+function solid(geo, parent, thr = 25) { const g = new THREE.Group(); g.add(new THREE.Mesh(geo, black)); g.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo, thr), parent.userData.mat || parent.parent.userData.mat)); parent.add(g); return g; }
+function ball(r, parent) {
+  const g = new THREE.Group(); g.add(new THREE.Mesh(new THREE.SphereGeometry(r, 32, 16), black));
+  const pts = []; for (let i = 0; i <= 72; i++) { const a = (i / 72) * Math.PI * 2; pts.push(new THREE.Vector3(Math.cos(a) * r, Math.sin(a) * r, 0)); }
+  const ring = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), parent.userData.mat); g.add(ring); g.userData.ring = ring; parent.add(g); return g;
+}
+function annulus(r1, r2, h, a0 = 0, a1 = Math.PI * 2) { const s = new THREE.Shape(); s.absarc(0, 0, r2, a0, a1, false); s.absarc(0, 0, r1, a1, a0, true); s.closePath(); const g = new THREE.ExtrudeGeometry(s, { depth: h, bevelEnabled: false, curveSegments: 64 }); g.rotateX(-Math.PI / 2); return g; }
+
+// 1. a stack of dollar coins, the top one with its raised rim
+const G1 = group();
+[0, 1, 2].forEach((k) => { const c = solid(new THREE.CylinderGeometry(0.82, 0.82, 0.16, 64), G1); c.position.y = -0.24 + k * 0.2; c.position.x = (k - 1) * 0.06; });
+const rim = solid(annulus(0.56, 0.66, 0.03), G1); rim.position.set(0.06, 0.24 + 0.08, 0);
+// 2. a vault: the box, its round door, the dial with three spokes
+const G2 = group();
+solid(new THREE.BoxGeometry(1.5, 1.5, 1.1), G2);
+const door = solid(new THREE.CylinderGeometry(0.5, 0.5, 0.1, 64), G2); door.rotation.x = Math.PI / 2; door.position.z = 0.6;
+const dial = new THREE.Group(); dial.position.z = 0.68; G2.add(dial);
+[0, 1, 2].forEach((k) => { const sp = solid(new THREE.BoxGeometry(0.62, 0.06, 0.06), dial); sp.rotation.z = (k * Math.PI) / 3; });
+const hub = solid(new THREE.CylinderGeometry(0.1, 0.1, 0.1, 32), dial); hub.rotation.x = Math.PI / 2;
+// 3. an orbit: a ball, a tilted ring round it, a moon travelling on the ring
+const G3 = group();
+const B3 = ball(0.42, G3);
+const ringG = new THREE.Group(); ringG.rotation.set(0.42, 0, -0.28); G3.add(ringG);
+solid(annulus(0.86, 0.98, 0.03), ringG);
+const moon = ball(0.11, G3);
+// 4. a globe: the sphere's outline, meridians and the equator
+const G4 = group();
+const B4 = ball(0.8, G4);
+const glb = new THREE.Group(); G4.add(glb);
+[0, 1, 2].forEach((k) => { const m = solid(annulus(0.795, 0.805, 0.004), glb, 1); m.rotation.set(Math.PI / 2, 0, (k * Math.PI) / 3); });
+const eq = solid(annulus(0.795, 0.805, 0.004), glb, 1);
+[-0.45, 0.45].forEach((y) => { const r = Math.sqrt(0.8 * 0.8 - y * y); const p = solid(annulus(r - 0.005, r + 0.005, 0.004), glb, 1); p.position.y = y; });
+const GROUPS = [G1, G2, G3, G4];
+function ringsFace() { [B3, moon, B4].forEach((b) => b.userData.ring.quaternion.copy(camera.quaternion).premultiply(b.parent.getWorldQuaternion(new THREE.Quaternion()).invert())); }
+
+// the Olie mark, six petals in a 24-unit box
+const MARK = ['M16.8266 18.2485C16.7275 17.6842 16.3672 17.0761 15.868 16.5505C15.3674 16.0233 14.7365 15.5881 14.0968 15.3553C13.457 15.1224 12.9032 15.1264 12.5321 15.3361C12.162 15.5454 11.9807 15.9564 12.0798 16.5207C12.1789 17.0851 12.5392 17.6932 13.0384 18.2188C13.5391 18.746 14.1699 19.1811 14.8097 19.414C15.4494 19.6468 16.0032 19.6429 16.3743 19.4332C16.7446 19.2239 16.9258 18.8129 16.8266 18.2485Z', 'M7.17312 5.74758C7.27228 6.31192 7.63253 6.91997 8.13175 7.44563C8.63232 7.97277 9.26322 8.40794 9.90295 8.64077C10.5428 8.87371 11.0965 8.86967 11.4677 8.65995C11.8378 8.45073 12.0191 8.03971 11.92 7.47537C11.8208 6.91096 11.4606 6.30285 10.9613 5.77725C10.4607 5.25012 9.82988 4.815 9.19003 4.58206C8.55031 4.3493 7.99658 4.35322 7.62543 4.56293C7.25519 4.77222 7.07396 5.18318 7.17312 5.74758Z', 'M14.9986 4.69394C14.5595 5.062 14.2132 5.67808 14.0076 6.37333C13.8015 7.07049 13.7402 7.83456 13.8584 8.5051C13.9767 9.1758 14.257 9.65342 14.6242 9.87006C14.9904 10.086 15.4369 10.0376 15.876 9.66955C16.3151 9.30146 16.6615 8.68535 16.867 7.99013C17.0731 7.29287 17.1345 6.52893 17.0162 5.85822C16.8979 5.18772 16.6176 4.71004 16.2505 4.4934C15.8842 4.27735 15.4377 4.32585 14.9986 4.69394Z', 'M9.00141 19.3061C9.44046 18.938 9.78682 18.3219 9.99235 17.6267C10.1985 16.9295 10.2598 16.1654 10.1416 15.4949C10.0233 14.8242 9.74297 14.3466 9.37582 14.1299C9.0096 13.914 8.56307 13.9624 8.12398 14.3305C7.68487 14.6985 7.33846 15.3146 7.13298 16.0099C6.92691 16.7071 6.86555 17.4711 6.98378 18.1418C7.1021 18.8123 7.38236 19.29 7.74952 19.5066C8.11585 19.7227 8.5623 19.6742 9.00141 19.3061Z', 'M4.17502 13.0575C4.71323 13.2538 5.41984 13.2458 6.12459 13.0762C6.8313 12.9062 7.52355 12.5773 8.045 12.1396C8.56662 11.7018 8.83998 11.2202 8.84398 10.7938C8.84788 10.3686 8.58264 10.0061 8.04445 9.80972C7.50618 9.61341 6.79952 9.62141 6.09482 9.79103C5.38805 9.96116 4.69592 10.29 4.1743 10.7277C3.6529 11.1655 3.37943 11.6471 3.37543 12.0734C3.37153 12.4988 3.63675 12.8612 4.17502 13.0575Z', 'M19.8257 10.9464C19.2875 10.7501 18.5809 10.7581 17.8761 10.9277C17.1694 11.0977 16.4772 11.4266 15.9557 11.8643C15.4341 12.3021 15.1608 12.7838 15.1568 13.2101C15.1529 13.6353 15.4181 13.9979 15.9563 14.1942C16.4946 14.3905 17.2012 14.3825 17.9059 14.2129C18.6127 14.0427 19.3048 13.7139 19.8264 13.2762C20.3478 12.8384 20.6213 12.3568 20.6253 11.9305C20.6292 11.5051 20.364 11.1427 19.8257 10.9464Z'].map((d) => new Path2D(d));
+const MX = 196, MY = 300, MS = 132;                         // where the mark sits on the first app screen, and its size
+// draw the mark at (x, y) px wide; line = how much of each petal's outline is drawn, fill = how solid it is
+function markAt(c, x, y, size, line, fill, alpha = 1) {
+  const k = size / 24; c.save(); c.translate(x, y); c.scale(k, k); c.translate(-12, -12); c.globalAlpha *= alpha;
+  if (fill > 0) { c.fillStyle = `rgba(255,255,255,${fill})`; MARK.forEach((p) => c.fill(p)); }
+  if (line > 0 && fill < 1) { c.strokeStyle = '#fff'; c.lineWidth = 1.3 / k; c.setLineDash([16 * line, 16]); MARK.forEach((p) => c.stroke(p)); }
+  c.restore();
+}
+// the first app screen: the Olie mark, the name, one line, a button
+function first(c, a = 1) {
+  c.fillStyle = '#000'; c.fillRect(0, 0, 393, 852);
+  markAt(c, MX, MY, MS, 0, 1, a);
+  c.save(); c.globalAlpha = a; c.fillStyle = '#fff'; c.textAlign = 'center'; c.font = '500 54px Inter'; c.fillText('Olie', 196, 530);
+  c.fillStyle = '#bdbdbd'; c.font = '400 15px Inter'; c.fillText('One company, three products.', 196, 572);
+  c.strokeStyle = '#555'; c.lineWidth = 1.2; c.beginPath(); c.roundRect(141, 610, 110, 34, 17); c.stroke(); c.fillStyle = '#fff'; c.font = '400 13px Inter'; c.fillText('Continue', 196, 632); c.restore();
+}
+const SCREENS = ['img/orbit-home.jpg', first, 'img/vault-transfer.jpg', 'img/amb-level.jpg', 'img/orbit-group.jpg', 'img/vault-result.jpg', 'img/orbit-send.jpg', 'img/vault-name.jpg'];
+const FOCUS = 1;
+const painters = SCREENS.map((draw) => { const d = h('div', { class: 'sc' }, $('#row')); if (typeof draw === 'string') { h('img', { src: draw, alt: '' }, d); return () => {}; } const cv = h('canvas', { width: 393 * 2, height: 852 * 2 }, d); const cc = cv.getContext('2d'); return () => { cc.setTransform(2, 0, 0, 2, 0, 0); draw(cc); }; });
+const SW = 250, STEP = SW + 34, cx0 = FOCUS * STEP + SW / 2, Z0 = 3.0, KS = SW / 393;
+// the first screen seen up close (the camera at its start): screen px -> frame px
+const fx = (sx) => W / 2 + (sx * KS - SW / 2) * Z0, fy = (sy) => H / 2 + (128 + sy * KS - (128 + 271)) * Z0;
+function drawRow(t) {
+  const u = t - CUT;
+  const out = seg(u, 0.05, 0.85, E.io4), back = seg(u, 3.2, 4.0, E.io4);
+  const z = lerp(Z0, 1.18, out) + (Z0 - 1.18) * back;
+  const drift = 160 * seg(u, 0.5, 3.2, E.io3);
+  const px = cx0 + drift * (1 - back), py = lerp(128 + 271, 400, out) + (128 + 271 - 400) * back;
+  $('#cam').style.transform = `translate(${(W / 2 - px * z).toFixed(2)}px,${(H / 2 - py * z).toFixed(2)}px) scale(${z.toFixed(4)})`;
+}
+// the up-close first screen drawn flat on the overlay, with its walls: a = content, w = how far the walls have come in
+function closeup(t, a, wIn, edge) {
+  const xl = fx(0), xr = fx(393);
+  // the phone's edges draw down either side
+  if (edge > 0) { o.fillStyle = '#fff'; o.globalAlpha = 1 - wIn; o.fillRect(xl - 1, 0, 1.5, H * edge); o.fillRect(xr - .5, 0, 1.5, H * edge); o.globalAlpha = 1; }
+  // the real row, held at the up-close camera, shows only in two bands that grow in from the sides:
+  // the grey walls and the edges of the screens next door arrive together, already in place
+  const b = $('#b');
+  if (wIn > 0) {
+    drawRow(CUT); painters.forEach((p) => p()); b.style.display = 'block';
+    const L = (xl * wIn).toFixed(1), R = (W - xl * wIn).toFixed(1);
+    const m = `linear-gradient(90deg,#000 0px,#000 ${L}px,transparent ${L}px,transparent ${R}px,#000 ${R}px,#000 100%)`;
+    b.style.webkitMaskImage = m; b.style.maskImage = m;
+  }
+  if (a > 0) { o.save(); o.beginPath(); o.rect(xl, 0, xr - xl, H); o.clip(); o.setTransform(2 * KS * Z0, 0, 0, 2 * KS * Z0, 2 * xl, 2 * fy(0)); first(o, a); o.restore(); o.setTransform(2, 0, 0, 2, 0, 0); }
+}
+window.ready = Promise.all([fontsReady(['400 34px Inter', '500 54px Inter', '400 13px Inter', '400 15px Inter']), ...[...document.querySelectorAll('.sc img')].map((i) => i.decode().catch(() => {}))]);
+window.setTime = (t) => {
+  const row = t >= CUT && t < CUT + 4.05;
+  $('#b').style.display = row ? 'block' : 'none'; $('#b').style.webkitMaskImage = 'none'; $('#b').style.maskImage = 'none';
+  o.setTransform(2, 0, 0, 2, 0, 0); o.clearRect(0, 0, W, H);
+  if (row) { drawRow(t); painters.forEach((p) => p()); return; }
+  if (t >= CUT + 4.05) {
+    // pushed back into the first screen: walls slide out, the screen goes dark, back to the drawings
+    renderer.render(new THREE.Scene(), camera);
+    const e = seg(t, CUT + 4.05, DUR - 0.05, E.io4);
+    closeup(t, 1 - e, 1 - e, 0);
+    return;
+  }
+  // the four drawings, each one arriving as the last one leaves
+  const SPAN = [[0.0, 1.4], [1.15, 2.6], [2.35, 3.75], [3.55, 4.8]];
+  GROUPS.forEach((g, i) => {
+    const [a, b] = SPAN[i], inn = i === 0 ? seg(t, 0, 0.3, E.o3) : seg(t, a, a + 0.35, E.o4), out = seg(t, b - 0.3, b, E.i3);
+    const vis = t >= a - 0.01 && t <= b + 0.01; g.visible = vis; if (!vis) return;
+    g.userData.mat.opacity = Math.min(inn, 1 - out);
+    const life = clamp((t - a) / (b - a));
+    g.scale.setScalar(lerp(0.55, 1, inn) * lerp(1, 0.6, out));
+    g.rotation.y = -0.55 + 1.1 * E.io3(life);
+    if (i === 3) { g.position.y = lerp(0, 0.75, out); }
+  });
+  G1.rotation.x = 0.15; dial.rotation.z = 1.4 * seg(t, 1.4, 2.4, E.io3);
+  const ma = t * 2.6; moon.position.copy(new THREE.Vector3(Math.cos(ma) * 0.92, 0, Math.sin(ma) * 0.92).applyEuler(ringG.rotation));
+  glb.rotation.y = t * 0.6;
+  ringsFace();
+  renderer.render(scene, camera);
+  // the Olie mark draws itself where it will sit on the first screen, then fills
+  const mx = fx(MX), my = fy(MY), ms = MS * KS * Z0;
+  const line = seg(t, 4.45, 5.1, E.io3), fill = seg(t, 4.95, 5.35, E.o3);
+  if (line > 0) markAt(o, mx, my, ms, line, fill);
+  // the phone's edges, then the walls; the rest of the first screen fades up under the mark
+  closeup(t, seg(t, 5.35, 5.95, E.o3), seg(t, 5.25, 5.95, E.io4), seg(t, 4.95, 5.45, E.io3));
+};
+</script>

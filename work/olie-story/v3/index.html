@@ -1,0 +1,1295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Olie story | Jose Arce</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Olie from research to three products: the problem, the bet, what the first users taught, and the rebuild.">
+<script>
+// Like every /work page this one is shared by invitation. The access code is asked on /work/olie-story/,
+// which sends visitors here once they are in; anyone arriving here without it is sent back there.
+(function () {
+  var ok = false;
+  try { ok = localStorage.getItem('josearce.work.unlocked') === '1'; } catch (e) {}
+  if (!ok) { try { ok = document.referrer.indexOf(location.origin + '/work/olie-story') === 0; } catch (e) {} }
+  if (!ok) location.replace('/work/olie-story/');
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+@font-face{font-family:"Space Grotesk";font-weight:500;src:url(fonts/SpaceGrotesk_500Medium.woff2) format("woff2")}
+@font-face{font-family:"Geist";font-weight:500;src:url(fonts/Geist-Medium.ttf) format("truetype")}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--g:40px;--ease:cubic-bezier(.25,1,.5,1);--io:cubic-bezier(.45,0,.55,1);--mute:#8a8a8a;--faint:#5c5c5c;--line:#222}
+html{background:#000}
+body{background:#000;color:#fff;font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--g)}
+@media (max-width:760px){:root{--g:16px}}
+
+/* the text rise every section shares: 1s, 0.1s apart */
+[data-r]{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:calc(var(--i,0) * .1s)}
+.in [data-r],[data-r].in{opacity:1;transform:none}
+
+/* header */
+header{padding-top:120px}
+.kicker{font-size:15px;color:var(--mute)}
+h1{font-size:clamp(64px,11vw,168px);font-weight:500;letter-spacing:-.045em;line-height:.95;margin-top:18px}
+.lede{font-size:clamp(22px,2.5vw,36px);line-height:1.22;letter-spacing:-.015em;max-width:1040px;margin-top:40px}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:64px;padding-top:24px;border-top:1px solid var(--line)}
+.meta dt{font-size:14px;color:var(--mute)}
+.meta dd{font-size:17px;margin-top:6px;line-height:1.35}
+@media (max-width:760px){.meta{grid-template-columns:1fr 1fr;row-gap:28px}}
+
+/* the hero stage */
+.hero{margin-top:72px;border-radius:12px;overflow:hidden;background:#000;position:relative}
+.hero canvas{display:block;width:100%;height:auto}
+
+/* chapters */
+.chap{padding-top:180px}
+.chap-h{display:grid;grid-template-columns:1fr 3fr;gap:24px}
+.chap-h .when{font-size:15px;color:var(--mute);line-height:1.5}
+.chap-h h2{font-size:clamp(34px,4.4vw,64px);font-weight:500;letter-spacing:-.035em;line-height:1.02;max-width:980px}
+.chap-h p{font-size:clamp(18px,1.6vw,22px);line-height:1.4;color:#bdbdbd;max-width:820px;margin-top:28px}
+.blk{display:grid;grid-template-columns:1fr 3fr;gap:24px;margin-top:140px}
+.blk .t h3{font-size:19px;font-weight:500;letter-spacing:-.01em;line-height:1.3}
+.blk .t p{font-size:16px;line-height:1.5;color:var(--mute);margin-top:10px;max-width:300px}
+.blk .t .src{font-size:13px;color:var(--faint);margin-top:18px;line-height:1.45;max-width:300px}
+.fig{position:relative;min-width:0}
+.fig canvas{display:block}
+@media (max-width:900px){.chap-h,.blk{grid-template-columns:1fr}.blk{margin-top:96px}.blk .t p,.blk .t .src{max-width:none}.chap{padding-top:120px}}
+
+/* four ways, with rolling figures */
+.ways{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.ways>div{border-top:1px solid var(--line);padding-top:20px}
+.ways h4{font-size:17px;font-weight:500;line-height:1.3;min-height:2.6em}
+.ways .catch{font-size:15px;color:var(--mute);line-height:1.45;margin-top:8px;min-height:44px}
+.ways .num{font-size:clamp(40px,4vw,60px);font-weight:500;letter-spacing:-.04em;line-height:1;margin-top:40px;display:flex}
+.ways .what{font-size:15px;color:#bdbdbd;line-height:1.45;margin-top:12px}
+.ways small{display:block;font-size:13px;color:var(--faint);margin-top:14px}
+.roll{display:inline-block;overflow:hidden;height:1.06em;vertical-align:top}
+.roll>span{display:block;transform:translateY(105%);transition:transform .8s var(--io)}
+.in .roll>span{transform:none}
+.rule{height:1px;background:#fff;transform-origin:left;transform:scaleX(0);transition:transform 1.2s var(--io);margin:-21px 0 20px}
+.in .rule{transform:none}
+@media (max-width:900px){.ways{grid-template-columns:1fr 1fr;row-gap:48px}}
+@media (max-width:520px){.ways{grid-template-columns:1fr}}
+
+/* problem statement */
+.ps{margin-top:180px;padding-top:24px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 3fr;gap:24px}
+.ps .when{font-size:15px;color:var(--mute)}
+.ps q{display:block;quotes:none;font-size:clamp(30px,3.8vw,56px);font-weight:500;letter-spacing:-.03em;line-height:1.08;max-width:1040px}
+.ps q em{font-style:normal;color:#7a7a7a}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:72px}
+.three>div{padding:28px;border-radius:14px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
+.three img{height:26px;width:auto;align-self:flex-start}
+.three p{font-size:17px;line-height:1.4;margin-top:40px}
+.p-orbit{background:#000;border:1px solid #232327}.p-orbit p{color:#B3B3B3}
+.p-vault{background:radial-gradient(120% 80% at 50% -20%,#2B2117 0%,rgba(21,16,11,0) 70%),#0D0B08;border:1px solid #272521}.p-vault p{color:#B3B3B3}
+.p-biz{background:#fff;border:1px solid #E3E8EE}.p-biz p{color:#697386}
+@media (max-width:900px){.ps{grid-template-columns:1fr}.three{grid-template-columns:1fr}}
+@font-face{font-family:"IBM Plex Mono";font-weight:300;src:url(fonts/IBMPlexMono_300Light.woff2) format("woff2")}
+/* quotes: a finding, a decision, a field note */
+.q{display:grid;grid-template-columns:1fr 3fr;gap:24px;margin-top:140px;padding-top:24px;border-top:1px solid var(--line)}
+.q .when{font-size:15px;color:var(--mute)}
+.q p{font-size:clamp(26px,3vw,44px);font-weight:500;letter-spacing:-.03em;line-height:1.12;max-width:1000px}
+@media (max-width:900px){.q{grid-template-columns:1fr;margin-top:96px}}
+/* the trade-off table */
+.tb>div{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px;padding:18px 0;border-top:1px solid var(--line);font-size:16px;line-height:1.4}
+.tb>div>*:not(:first-child){color:#bdbdbd}
+.tb .tb-h{font-size:14px;color:var(--mute)}.tb .tb-h>*{color:var(--mute)!important}
+.tb h4{font-weight:500;font-size:16px}
+.tb .yes{color:#fff!important}
+@media (max-width:520px){.tb>div{grid-template-columns:1fr 1fr 1fr;font-size:14px}.tb h4{font-size:14px}}
+/* key figures */
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:96px}
+.figs>div{border-top:1px solid var(--line);padding-top:20px}
+.figs .num{font-size:clamp(44px,4.6vw,68px);font-weight:500;letter-spacing:-.045em;line-height:1;display:flex}
+.figs p{font-size:15px;color:#bdbdbd;line-height:1.45;margin-top:14px;max-width:280px}
+.figs small{display:block;font-size:13px;color:var(--faint);margin-top:10px;line-height:1.4}
+.blk .figs{margin-top:0}
+/* pictures uncover from the bottom, the image settles */
+[data-u]{clip-path:inset(100% 0 0 0);transition:clip-path 1.2s var(--io);transition-delay:calc(var(--i,0) * .1s)}
+[data-u] img,[data-u] video{transform:scale(1.15);transition:transform 1.6s var(--ease);transition-delay:calc(var(--i,0) * .1s)}
+[data-u].in{clip-path:inset(0)}[data-u].in img,[data-u].in video{transform:none}
+/* the launch: the first app */
+.launch{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto;gap:16px;margin-top:96px}
+.launch>figure{border-radius:12px;overflow:hidden;background:radial-gradient(90% 70% at 50% 0%,#1d1d1f 0%,#0b0b0c 70%);border:1px solid #1a1a1a}
+.launch>figure img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 100%;padding:28px 28px 0}
+.launch .home{grid-row:1/3;background:#000}
+.launch .home img{object-fit:cover;object-position:50% 40%;padding:0}
+@media (max-width:760px){.launch{grid-template-columns:1fr 1fr}.launch .home{grid-row:auto;grid-column:1/3}}
+/* what the calls said */
+.asked>div{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:16px;padding:26px 0;border-top:1px solid var(--line);position:relative}
+.asked p{font-size:clamp(22px,2.6vw,38px);font-weight:500;letter-spacing:-.025em;line-height:1.15}
+.asked i{font-style:normal;font-size:15px;color:var(--mute)}
+.asked .never p{color:#6a6a6a}
+.asked .never i{color:#fff}
+.asked .sk{position:relative}.asked .strike{position:absolute;left:-4px;right:-4px;top:55%;height:2px;background:#fff;transform-origin:left;transform:scaleX(0);transition:transform .9s var(--io) 1.1s}
+.asked .never.in .strike{transform:none}
+/* the products */
+.prods{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:120px}
+.prod{border-radius:14px;padding:22px;display:flex;flex-direction:column;min-height:560px;overflow:hidden;text-decoration:none}
+.prod .job{font-size:14px}
+.prod img.logo{height:24px;width:auto;align-self:flex-start;margin-top:14px}
+.prod .scr{margin:28px auto 0;width:62%;border-radius:18px;overflow:hidden;flex:1;max-height:330px}
+.prod .scr.wide{width:100%;border-radius:8px;max-height:220px}
+.prod .scr img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0;transform:scale(1.08);filter:brightness(.35);transition:transform 1.4s var(--ease),filter 1.4s var(--ease);transition-delay:calc(.3s + var(--i,0) * .12s)}
+.prod.in .scr img{transform:none;filter:none}
+.prod p{font-size:15px;line-height:1.45;margin-top:24px}
+.prod .go{font-size:14px;margin-top:auto;padding-top:16px;display:flex;gap:6px;align-items:center}
+.prod .go span{transition:transform .3s var(--io)}.prod:hover .go span{transform:translate(3px,-3px)}
+.prod.orbit{background:#000;border:1px solid #232327;color:#fff}.prod.orbit .job,.prod.orbit p{color:#8E8E93}.prod.orbit .go{color:#CFCAC3}
+.prod.vault{background:radial-gradient(120% 60% at 50% -10%,#2B2117 0%,rgba(21,16,11,0) 70%),#0D0B08;border:1px solid #272521;color:#fff}.prod.vault .job,.prod.vault p{color:#909090}.prod.vault .go{color:#CFB97D}
+.prod.biz{background:#fff;border:1px solid #E3E8EE;color:#1A1F36}.prod.biz .job,.prod.biz p{color:#697386}.prod.biz .go{color:#1A1F36}
+.prod.amb{background:#111;border:1px solid #222;color:#fff}.prod.amb .job,.prod.amb p{color:#8a8a8a}.prod.amb .go{color:#fff}
+.prod .name{font-size:19px;font-weight:500;margin-top:14px}
+@media (max-width:1100px){.prods{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.prods{grid-template-columns:1fr}.prod{min-height:0}.prod .scr{max-height:300px}}
+/* what comes next */
+.agents{border-radius:12px;overflow:hidden;margin-top:96px;aspect-ratio:16/9;background:#050505}
+.agents video{display:block;width:100%;height:100%;object-fit:cover}
+.rows3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.rows3>div{border-top:1px solid var(--line);padding-top:18px}
+.rows3 h4{font-size:17px;font-weight:500}.rows3 p{font-size:15px;color:#bdbdbd;line-height:1.45;margin-top:8px}
+.six{display:grid;grid-template-columns:repeat(6,1fr);gap:24px;margin-top:64px}
+.six>div{border-top:1px solid var(--line);padding-top:18px}
+.six i{font-style:normal;font-size:13px;color:var(--faint)}
+.six h4{font-size:19px;font-weight:500;margin-top:20px}.six p{font-size:14px;color:#bdbdbd;line-height:1.45;margin-top:8px}
+@media (max-width:900px){.rows3{grid-template-columns:1fr}.six{grid-template-columns:1fr 1fr;row-gap:36px}}
+/* links to the full case studies */
+.links{margin-top:160px}
+.links>p{font-size:15px;color:var(--mute);margin-bottom:16px}
+.links a{display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-top:1px solid var(--line);color:#fff;text-decoration:none;font-size:clamp(24px,2.6vw,38px);font-weight:500;letter-spacing:-.025em;position:relative;overflow:hidden}
+.links a:last-child{border-bottom:1px solid var(--line)}
+.links a::before{content:"";position:absolute;inset:0;background:#fff;transform:translateY(101%);transition:transform .5s var(--io);z-index:0}
+.links a>*{position:relative;z-index:1;transition:color .5s var(--io),transform .5s var(--io)}
+.links a:hover::before{transform:none}.links a:hover>*{color:#000}.links a:hover>span:first-child{transform:translateX(16px)}
+.links a small{font-size:15px;font-weight:400;color:var(--mute);letter-spacing:0}
+.next{display:block;margin-top:160px;text-decoration:none;color:#fff}
+.next .nimg{border-radius:12px;overflow:hidden;aspect-ratio:21/9}
+.next .nimg img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.15);transition:transform 1.2s var(--io)}
+.next:hover .nimg img{transform:scale(1)}
+.next span{display:block;font-size:clamp(28px,3vw,44px);font-weight:500;letter-spacing:-.03em;margin-top:20px}
+.next small{display:block;font-size:15px;color:var(--mute);margin-top:20px}.next span{margin-top:6px!important}
+
+
+/* motion system pieces embedded as their own pages; the page drives their time */
+.scene{position:relative;overflow:hidden;border-radius:12px;background:#000}
+.scene iframe{position:absolute;left:0;top:0;border:0;transform-origin:0 0;pointer-events:none}
+/* construction arcs: the four walls */
+.paper{border-radius:12px;overflow:hidden;background:#E6E6E6}
+.walls{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:28px}
+.walls>div{border-top:1px solid var(--line);padding-top:16px}
+.walls h4{font-size:16px;font-weight:500}.walls p{font-size:14px;line-height:1.45;color:#bdbdbd;margin-top:8px}
+@media (max-width:760px){.walls{grid-template-columns:1fr 1fr;row-gap:28px}}
+.pillbox{border-radius:12px;overflow:hidden;background:#111;margin-bottom:24px}
+/* the three products under the three screens */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:28px}
+.trio>div{border-top:1px solid var(--line);padding-top:16px}
+.trio i{font-style:normal;font-size:14px;color:var(--mute)}
+.trio h4{font-size:19px;font-weight:500;margin-top:8px}
+.trio p{font-size:15px;line-height:1.45;color:#bdbdbd;margin-top:8px}
+.go2{display:inline-flex;gap:6px;margin-top:12px;font-size:14px;color:#fff;text-decoration:none}
+.go2 span{transition:transform .3s var(--io)}.go2:hover span{transform:translate(3px,-3px)}
+.amb{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-size:15px;color:#bdbdbd;line-height:1.45}
+.amb b{color:#fff;font-weight:500}
+@media (max-width:760px){.trio{grid-template-columns:1fr}}
+/* the slider and its Drag cursor */
+.slh{display:flex;justify-content:space-between;align-items:baseline;gap:24px;margin-top:140px}
+.slh h3{font-size:19px;font-weight:500}.slh p{font-size:15px;color:var(--mute)}
+.slider{position:relative;overflow:hidden;margin-top:28px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+@media (pointer:fine){.slider{cursor:none}}
+.track{display:flex;gap:16px;will-change:transform;transition:transform .6s cubic-bezier(.25,1,.5,1)}
+.track.dragging{transition:none}
+.sl{flex:none;height:560px;border-radius:14px;display:flex;align-items:flex-end;justify-content:center;padding:56px 44px 0;position:relative;overflow:hidden}
+.sl img{display:block;height:100%;width:auto;border-radius:24px 24px 0 0;pointer-events:none;-webkit-user-drag:none}
+.sl.w{padding:64px 44px 0}.sl.w img{height:auto;width:640px;border-radius:8px 8px 0 0}
+.sl figcaption{position:absolute;left:22px;top:20px;font-size:14px}
+.sl.orbit{background:#000;border:1px solid #232327}.sl.orbit figcaption{color:#8E8E93}
+.sl.vault{background:radial-gradient(120% 60% at 50% -10%,#2B2117 0%,rgba(21,16,11,0) 70%),#0D0B08;border:1px solid #272521}.sl.vault figcaption{color:#909090}
+.sl.biz{background:#F6F8FA;border:1px solid #E3E8EE}.sl.biz figcaption{color:#697386}
+.sl.amb{background:#111;border:1px solid #222}.sl.amb figcaption{color:#8a8a8a}
+.drag{position:absolute;left:0;top:0;width:96px;height:96px;margin:-48px 0 0 -48px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;pointer-events:none;transform:scale(0);transition:transform .3s var(--ease);overflow:hidden;font-size:15px;font-weight:500;z-index:2}
+.drag span{display:block;transform:translateY(120%);transition:transform .45s var(--ease)}
+.slider.hov .drag{transform:scale(1)}.slider.hov .drag span{transform:none}
+@media (pointer:coarse){.drag{display:none}}
+@media (max-width:760px){.sl{height:440px;padding:48px 28px 0}.sl.w img{width:440px}.slh{flex-direction:column;gap:6px}}
+
+
+/* the product wall: square tiles of real, moving screens; Olie Orbit, then Olie Vault, then Olie Business */
+.pwall{position:relative;border-radius:12px;overflow:hidden;aspect-ratio:2.02/1;background:#000}
+.pw-layer{position:absolute;inset:0;display:none;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);gap:12px;padding:52px 18px 18px}
+.pw-layer.on{display:grid}
+.pw-logo{position:absolute;left:20px;top:16px;height:20px;width:auto}
+.pw-t{position:relative;border-radius:14px;overflow:hidden;min-height:0}
+.pw-t video,.pw-t img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.pw-orbit{background:#000}.pw-orbit .pw-t{background:#151518;box-shadow:inset 0 0 0 1px #232327}
+.pw-vault{background:radial-gradient(120% 70% at 50% -20%,#2B2117 0%,rgba(21,16,11,0) 70%),#0D0B08}.pw-vault .pw-t{background:#1C1A17;box-shadow:inset 0 0 0 1px #272521}
+.pw-biz{background:#F6F8FA}.pw-biz .pw-t{background:#fff;box-shadow:inset 0 0 0 1px #E3E8EE}
+.pw-band{position:absolute;top:-20%;bottom:-20%;width:16%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.55),rgba(255,255,255,0));filter:blur(18px);transform:skewX(-24deg);pointer-events:none;display:none;z-index:5}
+@media (max-width:640px){.pwall{aspect-ratio:1/1.02}.pw-layer{grid-template-columns:repeat(2,1fr);gap:10px;padding:46px 12px 12px}.pw-t:nth-child(n+6){display:none}}
+@media (prefers-reduced-motion:reduce){.pw-t img{animation:none!important}}
+
+footer{height:200px}
+@media (prefers-reduced-motion:reduce){[data-r],.roll>span,.rule{transition:none!important;opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <p class="kicker" data-r>Case study · 2024 to 2026</p>
+  <h1 data-r style="--i:1">Olie</h1>
+  <p class="lede" data-r style="--i:2">People in emerging markets save in dollars. Holding them takes a bank they must trust, a US visa, or cash at home. Olie is the company I built to remove all three: first as one dollar app, then as three products.</p>
+  <dl class="meta" data-r style="--i:3">
+    <div><dt>Role</dt><dd>Co-founder and product lead</dd></div>
+    <div><dt>Scope</dt><dd>Research to launch</dd></div>
+    <div><dt>Years</dt><dd>2024 to 2026</dd></div>
+    <div><dt>Results</dt><dd>$266K moved, +125% volume</dd></div>
+  </dl>
+</header>
+
+<div class="wrap"><figure class="hero" id="hero" data-r style="--i:4"><canvas id="hcv" aria-label="One chart that changes with a three-product switch. Olie Orbit: bars of what friends paid back. Olie Vault: a gold ring of a net worth. Olie Business: a navy wireframe globe with payments flying between a company in South America and its buyers and suppliers abroad."></canvas></figure></div>
+
+<section class="wrap chap" id="research">
+  <div class="chap-h">
+    <p class="when" data-r>2024 to 2026<br>Research</p>
+    <div>
+      <h2 data-r style="--i:1">People save in dollars. Keeping them safe is the problem.</h2>
+      <p data-r style="--i:2">At OKX I led LATAM research and spent two months in Brazil, talking to users and to people who had never touched crypto. What I found was bigger than one app. These are the problems Olie, the company, was built around.</p>
+    </div>
+  </div>
+
+  <div class="blk">
+    <div class="t"><h3 data-r>The local currency moves with politics</h3><p data-r style="--i:1">They earn in local currency and save in dollars. In August 2019 the Argentine peso lost 15 to 23% of its value in one day, after a primary election.</p><p class="src" data-r style="--i:2">Al Jazeera, AFP and S&amp;P, August 12, 2019.</p></div>
+    <div class="fig" id="c-peso"></div>
+  </div>
+
+  <div class="blk">
+    <div class="t"><h3 data-r>Savings get frozen, again and again</h3><p data-r style="--i:1">Banks, governments and crypto platforms have locked people out of their money in six different years.</p><p class="src" data-r style="--i:2">Yale Journal of Financial Crises. US bankruptcy filings, 2022. Federal Reserve review, April 2023. FGC and Reuters, 2026. Banco Central del Paraguay, November 2026.</p></div>
+    <div class="fig" id="c-frozen"></div>
+  </div>
+
+  <div class="blk">
+    <div class="t"><h3 data-r>Every way to hold dollars has a catch</h3><p data-r style="--i:1">Getting dollars is easy. Keeping them safe is not.</p></div>
+    <div class="fig ways" id="c-ways">
+      <div><div class="rule"></div><h4>A dollar account at a local bank</h4><p class="catch">A bank or a government can freeze it.</p><div class="num" data-num="$38K"></div><p class="what">the most the guarantee covers per person at Ueno Bank.</p><small>Banco Central del Paraguay, November 2026.</small></div>
+      <div><div class="rule"></div><h4>Cash at home</h4><p class="catch">No yield, no protection, hard to pass on.</p><div class="num" data-num="$170B+"></div><p class="what">in dollars kept outside Argentina’s banks.</p><small>Official estimates, May 2026.</small></div>
+      <div><div class="rule"></div><h4>A bank account in the US</h4><p class="catch">It takes a visa and a flight, and it can be closed.</p><div class="num" data-num="175,000+"></div><p class="what">US visas revoked since January 2025.</p><small>US State Department, August 2026.</small></div>
+      <div><div class="rule"></div><h4>A crypto exchange</h4><p class="catch">Built for traders. Your dollars sit in a shared pool.</p><div class="num" data-num="$46.5B"></div><p class="what">locked when crypto platforms failed in 2022, across 4.3M users.</p><small>Chicago Fed.</small></div>
+    </div>
+  </div>
+
+  <div class="blk">
+    <div class="t"><h3 data-r>Moving dollars across borders costs too much</h3><p data-r style="--i:1">Exporters and importers told us their bank charges 5 to 10% to pay a supplier abroad, and the money takes days to arrive.</p><p class="src" data-r style="--i:2">Interviews with Olie Business customers, 2026.</p></div>
+    <div class="fig" id="c-fee"></div>
+  </div>
+
+  <div class="blk">
+    <div class="t"><h3 data-r>The fix exists. The door to it is a trading app.</h3><p data-r style="--i:1">Stablecoins are dollars anyone can hold, and 90% of Brazil’s crypto volume is already stablecoins. Yet to get them you sign up to an exchange made for traders.</p><p class="src" data-r style="--i:2">Mobile banking users, 2026 industry estimates. Crypto owners: Crypto.com, 2025. Chainalysis, 2025.</p></div>
+    <div class="fig" id="c-door"></div>
+  </div>
+
+  <div class="ps">
+    <p class="when" data-r>Problem statement</p>
+    <div>
+      <q data-r style="--i:1">People in LATAM need to hold and move dollars <em>without depending on</em> a local bank, a visa or a trading app.</q>
+      <div class="three">
+        <div class="p-orbit" data-r style="--i:2"><img src="img/olie-orbit-logo.svg" alt="Olie Orbit"><p>Everyday dollars, with friends. Get paid from abroad and pay a friend back in seconds.</p></div>
+        <div class="p-vault" data-r style="--i:3"><img src="img/olie-vault-logo.svg" alt="Olie Vault"><p>Wealth kept for the long run, at an address the family can check themselves.</p></div>
+        <div class="p-biz" data-r style="--i:4"><img src="img/olie-business-logo.svg" alt="Olie Business"><p>Companies paying the world. Accounts in dollars and euros, suppliers paid the same day.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="wrap chap" id="bet">
+  <div class="chap-h">
+    <p class="when" data-r>2025<br>The bet</p>
+    <div>
+      <h2 data-r style="--i:1">A dollar app where you can check your own money.</h2>
+      <p data-r style="--i:2">An app that looks like a bank and holds real dollars: USDC, the most regulated digital dollar, moved in and out on banking rails. One decision defined it.</p>
+    </div>
+  </div>
+  <div class="blk">
+    <div class="t"><h3 data-r>One shared ledger, or an address for every person</h3><p data-r style="--i:1">A ledger is quick to build through a provider. An address per person takes months, and anyone can check it.</p></div>
+    <div class="fig" id="c-custody"></div>
+  </div>
+  <div class="blk">
+    <div class="t"><h3 data-r>The trade-off</h3></div>
+    <div class="fig tb">
+      <div class="tb-h" data-r><span></span><span>A ledger</span><span>An address per person</span></div>
+      <div data-r style="--i:1"><h4>Can you check your money yourself?</h4><span>No</span><span class="yes">Yes, any time</span></div>
+      <div data-r style="--i:2"><h4>Mixed with other people’s money</h4><span>Yes</span><span class="yes">Never</span></div>
+      <div data-r style="--i:3"><h4>Sends between users</h4><span class="yes">Free, instant</span><span>Network fee, slower</span></div>
+      <div data-r style="--i:4"><h4>Who you have to trust</h4><span>The company</span><span class="yes">The public record</span></div>
+      <div data-r style="--i:5"><h4>Time to build</h4><span class="yes">Weeks</span><span>Months</span></div>
+    </div>
+  </div>
+  <div class="blk">
+    <div class="t"><h3 data-r>Four walls before the first user</h3><p data-r style="--i:1">Money is regulated country by country. Each of these had to be solved before anyone could sign up.</p></div>
+    <div class="fig"><div class="paper" id="c-arcs"></div>
+      <div class="walls">
+        <div data-r><h4>Licences</h4><p>Found the one LATAM market where a legal opinion confirmed no licence was needed, and launched there.</p></div>
+        <div data-r style="--i:1"><h4>Identity</h4><p>Identity checks at sign up, AML and OFAC screening on every user.</p></div>
+        <div data-r style="--i:2"><h4>Bank rails</h4><p>Signed a licensed US partner. Accounts in the user’s own name, by ACH, wire and SEPA.</p></div>
+        <div data-r style="--i:3"><h4>Regulators</h4><p>Met regulators and lined up local partners in Argentina and Peru.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="q"><p class="when" data-r>Decision</p><p data-r style="--i:1">We built the hard one. A bank can never show you your own money, because it lends it out.</p></div>
+</section>
+
+<section class="wrap chap" id="launch">
+  <div class="chap-h">
+    <p class="when" data-r>November 2025<br>Launch</p>
+    <div>
+      <h2 data-r style="--i:1">Five months, one engineer, no AI.</h2>
+      <p data-r style="--i:2">Designed screen by screen in Figma, built from June to November 2025, and launched in the one LATAM market where a legal opinion confirmed no licence was needed.</p>
+    </div>
+  </div>
+  <div class="launch">
+    <figure class="home" data-u><img src="img/v1hq-home.webp" alt="The first Olie dollar app: a balance of 2,500.00 USDC with buy, sell, receive and transfer"></figure>
+    <figure data-u style="--i:1"><img src="img/v1hq-buy.webp" alt="Buying USDC"></figure>
+    <figure class="cut" data-u style="--i:2"><img src="img/v1hq-send.webp?v=2" alt="Sending to banks in the US, Europe and Brazil, or on chain"></figure>
+    <figure data-u style="--i:3"><img src="img/v1hq-bank.webp" alt="US account details to receive dollars"></figure>
+    <figure class="cut" data-u style="--i:4"><img src="img/v1hq-receive.webp?v=2" alt="A personal address shown as a QR code"></figure>
+  </div>
+  <div class="figs">
+    <div data-r><div class="num" data-num="22"></div><p>weeks from first screen to launch</p></div>
+    <div data-r style="--i:1"><div class="num" data-num="1"></div><p>engineer, front end and back end</p></div>
+    <div data-r style="--i:2"><div class="num" data-num="Figma"></div><p>every screen and every state drawn by hand</p></div>
+  </div>
+</section>
+
+<section class="wrap chap" id="lesson">
+  <div class="chap-h">
+    <p class="when" data-r>Early 2026<br>The lesson</p>
+    <div>
+      <h2 data-r style="--i:1">They moved money. They did not keep it.</h2>
+      <p data-r style="--i:2">After launch, movement was low. Calls with users, prospects and businesses explained why.</p>
+    </div>
+  </div>
+  <div class="blk">
+    <div class="t"><h3 data-r>What the data said</h3><p class="src" data-r style="--i:1">Olie admin, November 2025 to February 2026.</p></div>
+    <div class="fig figs">
+      <div data-r><div class="num" data-num="$21.7K"></div><p>moved in the first four months</p></div>
+    </div>
+  </div>
+  <div class="blk">
+    <div class="t"><h3 data-r>Digital dollars are moved, not kept</h3><p data-r style="--i:1">Of 310M stablecoin addresses, only 2.8% hold more than $100.</p><p class="src" data-r style="--i:2">Cryptorank, 2026.</p></div>
+    <div class="fig scene" data-src="o-ring3d.html" data-w="1250" data-h="702" data-dur="9.03" aria-label="A ring of stablecoin addresses builds in white and grey glass, and the one slice that holds more than $100, 2.8%, lifts"></div>
+  </div>
+  <div class="blk">
+    <div class="t"><h3 data-r>What the calls said</h3><p data-r style="--i:1">Two questions came up in every call. One never did.</p></div>
+    <div class="fig asked">
+      <div data-r><p>“How much do you charge?”</p><i>Asked</i></div>
+      <div data-r style="--i:1"><p>“How fast does it arrive?”</p><i>Asked</i></div>
+      <div class="never" data-r style="--i:2"><p><span class="sk">“Where is my money held?”<span class="strike"></span></span></p><i>Nobody asked</i></div>
+    </div>
+  </div>
+  <div class="q"><p class="when" data-r>Finding</p><p data-r style="--i:1">People who move money do not care about custody. They care about price and speed.</p></div>
+  <div class="q"><p class="when" data-r>Decision</p><p data-r style="--i:1">Keep the architecture, change the customer. Someone needs to see their own money. I went to find them.</p></div>
+</section>
+
+<section class="wrap chap" id="pivot">
+  <div class="chap-h">
+    <p class="when" data-r>April 2026<br>The pivot</p>
+    <div>
+      <h2 data-r style="--i:1">So I found the customer who does care.</h2>
+      <p data-r style="--i:2">Business owners and family businesses in LATAM keep real balances, and fear losing access to them.</p>
+    </div>
+  </div>
+  <div class="figs">
+    <div data-r><div class="num" data-num="60%"></div><p>of LATAM’s GDP comes from family businesses</p><small>EY and University of St. Gallen, 2023.</small></div>
+    <div data-r style="--i:1"><div class="num" data-num="19.7M"></div><p>adults in LATAM hold $100K or more</p><small>UBS Global Wealth Report, 2025.</small></div>
+    <div data-r style="--i:2"><div class="num" data-num="81%"></div><p>of heirs plan to leave their family’s wealth manager</p><small>Capgemini, 2025.</small></div>
+    <div data-r style="--i:3"><div class="num" data-num="95.9%"></div><p>of LATAM’s exports are invoiced in dollars</p><small>IMF, 2020.</small></div>
+  </div>
+  <div class="q"><p class="when" data-r>Field note, Miami, 2026</p><p data-r style="--i:1">Owners were closing their US accounts after rumours that visa interviews would stop.</p></div>
+  <div class="blk">
+    <div class="t"><h3 data-r>Validation before building</h3><p data-r style="--i:1">I announced Olie Vault on April 17, 2026 with a page and no product, and counted who asked for it.</p><p class="src" data-r style="--i:2">2026, from eight countries. Olie admin.</p></div>
+    <div class="fig"><div class="pillbox" id="c-pill" aria-label="The Olie Vault page had one button, Request access, with a light running round it"></div><div id="c-req"></div></div>
+  </div>
+</section>
+
+<section class="wrap chap" id="rebuild">
+  <div class="chap-h">
+    <p class="when" data-r>Fall 2026<br>The rebuild</p>
+    <div>
+      <h2 data-r style="--i:1">One app became three products, built with AI in weeks.</h2>
+      <p data-r style="--i:2">Moving and keeping are different jobs for different people. I split the app, rebuilt each part with AI, and added a partner channel to bring the clients.</p>
+    </div>
+  </div>
+  <div class="scene" style="margin-top:96px" data-src="o-intro.html" data-w="1250" data-h="800" data-dur="7.97" aria-label="White line drawings of a ring, a cube and a frame turn into a stack of coins, which becomes the Olie screen, then rows of real Olie screens"></div>
+  <div class="blk">
+    <div class="t"><h3 data-r>Built with AI</h3><p data-r style="--i:1">New ideas reach real users in days, so I test two versions instead of debating one.</p><p class="src" data-r style="--i:2">June to November 2025 for the first app. October 2026 for Business and Ambassadors.</p></div>
+    <div class="fig" id="c-weeks"></div>
+  </div>
+  <div class="scene" style="margin-top:140px" data-src="o-three.html" data-w="1250" data-h="702" data-dur="5.6" aria-label="Three screens light up together: Olie Orbit, Olie Vault and Olie Business"></div>
+  <div class="trio">
+    <div data-r><i>Move money</i><h4>Olie Orbit</h4><p>The dollar app friends use together. Free and instant between members.</p><a class="go2" href="https://josearce.com/work/olie/olie-orbit-case-study/" target="_blank" rel="noopener">Case study <span>↗</span></a></div>
+    <div data-r style="--i:1"><i>Keep money</i><h4>Olie Vault</h4><p>A private vault for owners and families. Their money at an address of their own.</p><a class="go2" href="https://josearce.com/work/olie/olie-vault-case-study/" target="_blank" rel="noopener">Case study <span>↗</span></a></div>
+    <div data-r style="--i:2"><i>Companies</i><h4>Olie Business</h4><p>Dollar and euro accounts for exporters and importers. 0.5% to pay a supplier abroad. An oil and gas importer signed on in the first month.</p><a class="go2" href="https://josearce.com/work/olie/olie-business-case-study/" target="_blank" rel="noopener">Case study <span>↗</span></a></div>
+  </div>
+  <p class="amb" data-r><b>Olie Ambassadors, the channel.</b> Trusted partners bring clients to all three and are paid only from fees Olie really earns. <a class="go2" href="https://josearce.com/work/olie/olie-ambassadors-case-study/" target="_blank" rel="noopener">Case study <span>↗</span></a></p>
+
+  <div class="slh"><h3 data-r>Inside the products</h3><p data-r style="--i:1">Real screens from all three. Drag to look through them.</p></div>
+  <div class="slider" id="slider" data-r style="--i:2">
+    <div class="track">
+      <figure class="sl orbit"><figcaption>Olie Orbit · Home</figcaption><img src="img/orbit-home.jpg" alt="Olie Orbit home with a balance and groups"></figure>
+      <figure class="sl orbit"><figcaption>Olie Orbit · Send</figcaption><img src="img/orbit-send.jpg" alt="Sending money to a friend in Olie Orbit"></figure>
+      <figure class="sl orbit"><figcaption>Olie Orbit · Group</figcaption><img src="img/orbit-group.jpg" alt="A group trip with who owes what"></figure>
+      <figure class="sl orbit"><figcaption>Olie Orbit · Settled</figcaption><img src="img/orbit-settled.jpg" alt="A group settled up"></figure>
+      <figure class="sl vault"><figcaption>Olie Vault · Name your Vault</figcaption><img src="img/vault-name.jpg" alt="Naming a new Olie Vault"></figure>
+      <figure class="sl vault"><figcaption>Olie Vault · Cash to Grow</figcaption><img src="img/vault-transfer.jpg" alt="Moving cash to Grow in Olie Vault"></figure>
+      <figure class="sl vault"><figcaption>Olie Vault · Completed</figcaption><img src="img/vault-result.jpg" alt="A completed transfer in Olie Vault"></figure>
+      <figure class="sl biz w"><figcaption>Olie Business · Home</figcaption><img src="img/biz-home.jpg" alt="Olie Business home on a desktop"></figure>
+      <figure class="sl biz w"><figcaption>Olie Business · Send</figcaption><img src="img/biz-send.jpg" alt="Paying a supplier in Olie Business"></figure>
+      <figure class="sl biz w"><figcaption>Olie Business · Get paid</figcaption><img src="img/biz-getpaid.jpg" alt="Account details and payment links"></figure>
+      <figure class="sl amb"><figcaption>Olie Ambassadors · Level</figcaption><img src="img/amb-level.jpg" alt="An ambassador level in the Olie Ambassadors app"></figure>
+      <figure class="sl amb"><figcaption>Olie Ambassadors · Race</figcaption><img src="img/amb-race.jpg" alt="The seasonal race in the Olie Ambassadors app"></figure>
+    </div>
+    <div class="drag" aria-hidden="true"><span>Drag</span></div>
+  </div>
+
+  <div class="blk">
+    <div class="t"><h3 data-r>Three products, one platform</h3><p data-r style="--i:1">Each product looks and moves its own way, on one shared base: identity checks for people and companies, AML screening, bank rails in the US and Europe, USDC custody and one admin console.</p></div>
+    <div class="fig pwall" id="pwall" aria-label="A wall of real Olie screens, moving: first Olie Orbit, then Olie Vault, then Olie Business"></div>
+  </div>
+</section>
+
+<section class="wrap chap" id="results">
+  <div class="chap-h">
+    <p class="when" data-r>Today<br>Results</p>
+    <div>
+      <h2 data-r style="--i:1">Growth since the change.</h2>
+      <p data-r style="--i:2">The biggest week on record was the week of October 5, when the new products shipped.</p>
+    </div>
+  </div>
+  <div class="blk">
+    <div class="t"><h3 data-r>Money moved through Olie</h3><p data-r style="--i:1">All time, through each date the total was recorded.</p><p class="src" data-r style="--i:2">Olie admin, data through November 13, 2026.</p></div>
+    <div class="fig" id="c-moved"></div>
+  </div>
+  <div class="blk">
+    <div class="t"><h3 data-r>The last 90 days against the 90 before</h3><p data-r style="--i:1">The grey outline is the earlier period.</p></div>
+    <div class="fig" id="c-90"></div>
+  </div>
+  <div class="figs">
+    <div data-r><div class="num" data-num="$266K"></div><p>moved, all time</p></div>
+    <div data-r style="--i:1"><div class="num" data-num="3,799"></div><p>transactions in 12 months</p></div>
+    <div data-r style="--i:2"><div class="num" data-num="131"></div><p>active users</p></div>
+    <div data-r style="--i:3"><div class="num" data-num="357"></div><p>sign ups in 12 months</p><small>Olie admin, data through November 13, 2026.</small></div>
+  </div>
+</section>
+
+<section class="wrap chap" id="next">
+  <div class="chap-h">
+    <p class="when" data-r>What comes next</p>
+    <div><h2 data-r style="--i:1">Olie Vault agents: a private banker run by AI.</h2></div>
+  </div>
+  <div class="agents-w"><div class="agents" data-u><video src="img/agents.mp4" poster="img/agents-poster.jpg" muted loop playsinline preload="none" aria-label="A short film about Olie agents"></video></div></div>
+  <div class="rows3">
+    <div data-r><h4>In development</h4><p>One agent per property, loan or goal. Below your limit it acts. Above it, it asks you.</p></div>
+    <div data-r style="--i:1"><h4>Live today: Olie by Text</h4><p>Send and request money by text message. One YES confirms every move.</p></div>
+    <div data-r style="--i:2"><h4>Live today: compliance agent</h4><p>Pre-screens every sign up with 11 checks and a confidence score. A person makes the final call.</p></div>
+  </div>
+  <div class="q"><p class="when" data-r>How I work</p><p data-r style="--i:1">Research, decide, design, build, validate, operate. One person, end to end.</p></div>
+  <div class="six">
+    <div data-r><i>1</i><h4>Discover</h4><p>Field research, user interviews, and calls with the people who left.</p></div>
+    <div data-r style="--i:1"><i>2</i><h4>Decide</h4><p>A written hypothesis and usage data behind every call.</p></div>
+    <div data-r style="--i:2"><i>3</i><h4>Design</h4><p>Flows, interface, motion and brand for three products.</p></div>
+    <div data-r style="--i:3"><i>4</i><h4>Build</h4><p>I ship production code with AI. Ideas reach users in days.</p></div>
+    <div data-r style="--i:4"><i>5</i><h4>Validate</h4><p>Two versions in front of real users. Keep the one that wins.</p></div>
+    <div data-r style="--i:5"><i>6</i><h4>Operate</h4><p>Regulators, banking partners, pricing and go to market.</p></div>
+  </div>
+  <nav class="links" aria-label="Full case studies">
+    <p data-r>The full case studies</p>
+    <a data-r href="https://josearce.com/work/olie/olie-orbit-case-study/" target="_blank" rel="noopener"><span>Olie Orbit</span><small>Move money ↗</small></a>
+    <a data-r style="--i:1" href="https://josearce.com/work/olie/olie-vault-case-study/" target="_blank" rel="noopener"><span>Olie Vault</span><small>Keep money ↗</small></a>
+    <a data-r style="--i:2" href="https://josearce.com/work/olie/olie-business-case-study/" target="_blank" rel="noopener"><span>Olie Business</span><small>Companies ↗</small></a>
+    <a data-r style="--i:3" href="https://josearce.com/work/olie/olie-ambassadors-case-study/" target="_blank" rel="noopener"><span>Olie Ambassadors</span><small>The channel ↗</small></a>
+  </nav>
+  <a class="next" data-r href="https://josearce.com/work/olie-agentic/" target="_blank" rel="noopener"><div class="nimg"><img src="img/agents-poster.jpg" alt="Olie agents"></div><small>Next case study</small><span>Olie Agentic</span></a>
+</section>
+
+<footer></footer>
+
+<script>
+/* ---------- shared ---------- */
+const clamp = (x, a = 0, b = 1) => (x < a ? a : x > b ? b : x);
+const lerp = (a, b, t) => a + (b - a) * t;
+const E = { lin: t => t, o3: t => 1 - (1 - t) ** 3, o4: t => 1 - (1 - t) ** 4, i3: t => t ** 3,
+  io3: t => (t < .5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2), io4: t => (t < .5 ? 8 * t ** 4 : 1 - (-2 * t + 2) ** 4 / 2) };
+const seg = (t, a, b, e = E.io4) => e(clamp((t - a) / (b - a)));
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const rgb = h => { const n = parseInt(h.slice(1), 16); return [n >> 16, (n >> 8) & 255, n & 255]; };
+const mix3 = (cols, w) => { const s = w[0] + w[1] + w[2] || 1; const r = [0, 1, 2].map(k => Math.round(cols.reduce((a, c, i) => a + rgb(c)[k] * w[i], 0) / s)); return `rgb(${r})`; };
+
+/* text reveals */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .2 });
+document.querySelectorAll('[data-r]').forEach(n => io.observe(n));
+
+/* ---------- the hero: the chart toggle, one view per product ---------- */
+const HW = 1250, HH = 800, K = 1.5625, P = (x, y) => [x * K, y * K];
+const hcv = document.getElementById('hcv'), hc = hcv.getContext('2d');
+let hs = 1;
+const hSize = () => { const w = hcv.parentNode.clientWidth, d = Math.min(2, devicePixelRatio || 1); hcv.width = Math.round(w * d); hcv.height = Math.round(w * HH / HW * d); hs = hcv.width / HW; };
+const LOGO = {}; [['orbit', 'img/olie-orbit-logo.svg'], ['vault', 'img/olie-vault-logo.svg'], ['business', 'img/olie-business-logo.svg']].forEach(([k, s]) => { const i = new Image(); i.src = s; LOGO[k] = i; });
+
+// the products, in the order the switch passes them
+const PR = [
+  { id: 'orbit', bg: '#000000', disc: '#1B1B1F', on: '#CFCAC3', off: '#5f5f62', line: 'Everyday dollars, with friends.', lineCol: '#8E8E93' },
+  { id: 'vault', bg: '#0D0B08', disc: '#262623', on: '#CFB97D', off: '#6a655b', line: 'Wealth kept for the long run.', lineCol: '#909090' },
+  { id: 'business', bg: '#FFFFFF', disc: '#EDF0F4', on: '#1A1F36', off: '#A3ACB9', line: 'Companies paying the world.', lineCol: '#697386' },
+];
+const T = 10.6;                                  // one full pass
+const SW = [[0.0, 2, 0], [3.3, 0, 1], [6.6, 1, 2]]; // [tap time, from, to]
+
+// Olie Business: the dollar account line (the reference line, redrawn in navy)
+const LN = [[165,390],[178,384],[190,388],[205,388],[220,350],[240,335],[258,335],[272,316],[290,300],[300,296],[315,296],[330,294],[345,280],[360,270],[375,262],[388,264],[400,290],[410,300],[420,300],[432,285],[440,272],[455,262],[470,240],[490,220],[510,200],[530,192],[545,184],[560,175],[575,170],[590,155],[606,138]].map(([x,y])=>P(x,y));
+const FUT = [[606,138],[620,126],[640,116],[660,121],[675,115],[690,118],[705,111],[720,102]].map(([x,y])=>P(x,y));
+const STEP = (() => { const o = [[165,390],[298,390]]; let x = 298, y = 390; for (let i = 0; i < 8; i++) { y -= 8; o.push([x, y]); x += 22; o.push([x, y]); } o.push([x, 352]); x += 22; o.push([x, 352]); y = 352; for (let i = 0; i < 5; i++) { y -= 7; o.push([x, y]); x += 22; o.push([x, y]); } o.push([606, y]); return o.map(([a,b])=>P(a,b)); })();
+const FSTEP = [[606,316],[630,316],[630,258],[650,258],[650,250],[672,250],[672,244],[694,244],[694,238],[718,238]].map(([x,y])=>P(x,y));
+const X0 = LN[0][0], XE = LN[LN.length - 1][0];
+const yAt = (pts, x) => { for (let i = 1; i < pts.length; i++) if (x <= pts[i][0]) { const a = pts[i-1], b = pts[i]; return lerp(a[1], b[1], b[0] === a[0] ? 1 : (x - a[0]) / (b[0] - a[0])); } return pts[pts.length-1][1]; };
+const smooth = pts => { const p = new Path2D(); p.moveTo(...pts[0]); for (let i = 1; i < pts.length - 1; i++) p.quadraticCurveTo(pts[i][0], pts[i][1], (pts[i][0] + pts[i+1][0]) / 2, (pts[i][1] + pts[i+1][1]) / 2); p.lineTo(...pts[pts.length-1]); return p; };
+const poly = pts => { const p = new Path2D(); pts.forEach(([x,y],i)=> i ? p.lineTo(x,y) : p.moveTo(x,y)); return p; };
+const pLN = smooth(LN), pFUT = smooth(FUT), pSTEP = poly(STEP), pFSTEP = poly(FSTEP);
+const AREA = (() => { const p = new Path2D(); p.moveTo(...LN[0]); for (let i = 1; i < LN.length - 1; i++) p.quadraticCurveTo(LN[i][0], LN[i][1], (LN[i][0] + LN[i+1][0]) / 2, (LN[i][1] + LN[i+1][1]) / 2); p.lineTo(XE, LN[LN.length-1][1]); for (let i = STEP.length - 1; i >= 0; i--) p.lineTo(...STEP[i]); p.closePath(); return p; })();
+const DATE = u => new Date(Date.UTC(2026, 2, 2) + u * (Date.UTC(2026, 10, 13) - Date.UTC(2026, 2, 2))).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+function drawLine(c, t, a, draw) {
+  if (a <= .003) return;
+  const xh = lerp(X0, XE, draw);
+  c.save(); c.globalAlpha = a;
+  if (draw > .55) { c.globalAlpha = a * clamp((draw - .55) / .3); c.lineWidth = 2.2; c.strokeStyle = 'rgba(26,31,54,.22)'; c.stroke(pFUT); c.strokeStyle = 'rgba(163,172,185,.55)'; c.lineWidth = 2; c.stroke(pFSTEP); c.globalAlpha = a; }
+  c.save(); c.beginPath(); c.rect(0, 0, xh + .5, HH); c.clip();
+  const g = c.createLinearGradient(0, 200, 0, 610); g.addColorStop(0, 'rgba(26,31,54,.16)'); g.addColorStop(1, 'rgba(26,31,54,.02)');
+  c.fillStyle = g; c.fill(AREA);
+  c.lineWidth = 3; c.strokeStyle = '#1A1F36'; c.lineJoin = 'round'; c.lineCap = 'round'; c.stroke(pLN);
+  c.lineWidth = 2.6; c.strokeStyle = '#A3ACB9'; c.lineJoin = 'miter'; c.lineCap = 'butt'; c.stroke(pSTEP);
+  c.restore();
+  const y = yAt(LN, xh);
+  const hl = c.createLinearGradient(0, 64 * K, 0, 392 * K); hl.addColorStop(0, 'rgba(26,31,54,0)'); hl.addColorStop(.15, 'rgba(26,31,54,.45)'); hl.addColorStop(1, 'rgba(26,31,54,.25)');
+  c.fillStyle = hl; c.fillRect(xh - 1, 64 * K, 2, 328 * K);
+  const pulse = 1 + .12 * Math.sin(t * 4.2);
+  const halo = c.createRadialGradient(xh, y, 0, xh, y, 30 * pulse); halo.addColorStop(0, 'rgba(26,31,54,.35)'); halo.addColorStop(1, 'rgba(26,31,54,0)');
+  c.fillStyle = halo; c.beginPath(); c.arc(xh, y, 30 * pulse, 0, 7); c.fill();
+  c.fillStyle = '#1A1F36'; c.beginPath(); c.arc(xh, y, 7.5, 0, 7); c.fill();
+  c.fillStyle = '#fff'; c.beginPath(); c.arc(xh, y, 3, 0, 7); c.fill();
+  c.font = '400 19px Inter'; c.fillStyle = '#697386'; c.textAlign = 'center';
+  c.fillText(DATE(draw), xh, 54 * K);
+  c.restore();
+}
+
+// Olie Business: a wireframe globe in navy glass, payments flying to and from a company in South America
+const GX = 735, GY = 430, GR = 292, RADN = Math.PI / 180;
+const v3 = (lat, lon) => { const a = lat * RADN, o = lon * RADN, cl = Math.cos(a); return [cl * Math.sin(o), Math.sin(a), cl * Math.cos(o)]; };
+const norm = v => { const l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; };
+const slerp = (a, b, u) => { const d = clamp(a[0] * b[0] + a[1] * b[1] + a[2] * b[2], -1, 1), w = Math.acos(d), s = Math.sin(w) || 1; const k0 = Math.sin((1 - u) * w) / s, k1 = Math.sin(u * w) / s; return [a[0] * k0 + b[0] * k1, a[1] * k0 + b[1] * k1, a[2] * k0 + b[2] * k1]; };
+function viewer(lonC, latC) {
+  const co = Math.cos(-lonC * RADN), so = Math.sin(-lonC * RADN), ca = Math.cos(latC * RADN), sa = Math.sin(latC * RADN);
+  return ([x, y, z]) => { const x1 = x * co + z * so, z1 = -x * so + z * co; const y2 = y * ca - z1 * sa, z2 = y * sa + z1 * ca; return [GX + GR * x1, GY - GR * y2, z2]; };
+}
+const HOME = v3(-23.5, -46.6);                                  // the company, in South America
+const ROUTES = [                                                 // [city, lat, lon, inbound, name, amount, label side]
+  ['Miami', 25.8, -80.2, true, 'Lumen Trading', '+$18,400.00', -1, -34],
+  ['Rotterdam', 51.9, 4.5, false, 'Haven Foods BV', '−€9,800.00', 1, -30],
+  ['Mexico City', 19.4, -99.1, false, 'Norte Packaging', '−$6,250.00', -1, 30],
+];
+const haloText = (c, txt, x, y) => { c.save(); c.lineWidth = 6; c.lineJoin = 'round'; c.strokeStyle = 'rgba(248,250,252,.92)'; c.strokeText(txt, x, y); c.restore(); c.fillText(txt, x, y); };
+function drawGlobe(c, t, tt, a) {
+  if (a <= .003) return;
+  const spin = seg(tt, .0, 1.9, E.o4), lonC = lerp(35, -38, spin) - tt * 1.6, latC = 14;
+  const pr = viewer(lonC, latC);
+  c.save(); c.globalAlpha = a;
+  // a soft shadow under the glass, then the glass itself
+  const body = seg(tt, 0, .55, E.o3);
+  c.save(); c.globalAlpha = a * body;
+  const sh = c.createRadialGradient(GX, GY + GR + 26, 0, GX, GY + GR + 26, GR * .9); sh.addColorStop(0, 'rgba(26,31,54,.14)'); sh.addColorStop(1, 'rgba(26,31,54,0)');
+  c.fillStyle = sh; c.beginPath(); c.ellipse(GX, GY + GR + 26, GR * .9, 30, 0, 0, 7); c.fill();
+  const gl = c.createRadialGradient(GX - GR * .35, GY - GR * .45, GR * .05, GX, GY, GR); gl.addColorStop(0, '#FFFFFF'); gl.addColorStop(.6, '#F3F5F8'); gl.addColorStop(.92, '#E3E8EE'); gl.addColorStop(1, '#D3DAE3');
+  c.fillStyle = gl; c.beginPath(); c.arc(GX, GY, GR * (.94 + .06 * body), 0, 7); c.fill();
+  c.restore();
+  // parallels and meridians draw in one after another, the back ones faint
+  const circles = [];
+  for (let lat = -60; lat <= 60; lat += 20) circles.push(u => v3(lat, u * 360));
+  for (let lon = 0; lon < 360; lon += 20) circles.push(u => v3(90 - u * 360, lon));
+  const N = 120;
+  circles.forEach((f, i) => {
+    const d = seg(tt, .15 + i * .03, .95 + i * .03, E.io3); if (d <= 0) return;
+    const front = new Path2D(), back = new Path2D(); let prev = null;
+    for (let k = 0; k <= Math.round(N * d); k++) { const p = pr(f(k / N)); if (prev) { const path = (p[2] + prev[2]) / 2 > 0 ? front : back; path.moveTo(prev[0], prev[1]); path.lineTo(p[0], p[1]); } prev = p; }
+    c.lineWidth = 1; c.strokeStyle = 'rgba(26,31,54,.09)'; c.stroke(back);
+    c.lineWidth = 1.2; c.strokeStyle = i < 7 && i === 3 ? 'rgba(26,31,54,.42)' : 'rgba(26,31,54,.26)'; c.stroke(front);
+  });
+  // the rim: a bright edge and a navy hairline, the glass's bevel
+  c.save(); c.globalAlpha = a * body; c.lineWidth = 1.4; c.strokeStyle = 'rgba(26,31,54,.32)'; c.beginPath(); c.arc(GX, GY, GR, 0, 7); c.stroke();
+  c.lineWidth = 3; c.strokeStyle = 'rgba(255,255,255,.9)'; c.beginPath(); c.arc(GX, GY, GR - 3, Math.PI * 1.05, Math.PI * 1.55); c.stroke(); c.restore();
+  // the payments: each arc lifts off the globe and lands, inbound ones fly home
+  const hp = pr(HOME);
+  ROUTES.forEach(([city, lat, lon, inbound, name, amt, side, ldy], i) => {
+    const at = 1.5 + i * .35, u = seg(tt, at, at + .8, E.io3); if (u <= 0) return;
+    const far = v3(lat, lon), A = inbound ? far : HOME, B = inbound ? HOME : far;
+    const pts = []; const M = 60;
+    for (let k = 0; k <= M; k++) { const w = k / M, s = slerp(A, B, w), lift = 1 + .2 * Math.sin(Math.PI * w); pts.push(pr([s[0] * lift, s[1] * lift, s[2] * lift])); }
+    const upto = Math.max(1, Math.round(M * u));
+    c.lineWidth = 2.6; c.lineCap = 'round'; c.lineJoin = 'round'; c.strokeStyle = '#1A1F36'; c.beginPath(); pts.slice(0, upto + 1).forEach((p, k) => k ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1])); c.stroke();
+    if (u < 1) { const hd = pts[upto]; const hg = c.createRadialGradient(hd[0], hd[1], 0, hd[0], hd[1], 22); hg.addColorStop(0, 'rgba(26,31,54,.35)'); hg.addColorStop(1, 'rgba(26,31,54,0)'); c.fillStyle = hg; c.beginPath(); c.arc(hd[0], hd[1], 22, 0, 7); c.fill(); c.fillStyle = '#1A1F36'; c.beginPath(); c.arc(hd[0], hd[1], 5, 0, 7); c.fill(); }
+    // the far city: a dot, then its name and amount rise
+    const fp = pr(far), pop = seg(tt, at + (inbound ? 0 : .8), at + (inbound ? .3 : 1.1), E.o4);
+    if (pop > 0) { c.fillStyle = '#1A1F36'; c.beginPath(); c.arc(fp[0], fp[1], 6.5 * pop, 0, 7); c.fill(); c.fillStyle = '#fff'; c.beginPath(); c.arc(fp[0], fp[1], 2.6 * pop, 0, 7); c.fill(); }
+    const la = seg(tt, at + .7, at + 1.15, E.o4);
+    if (la > 0) {
+      c.save(); c.globalAlpha = a * la; c.textAlign = side < 0 ? 'right' : 'left'; const lx = fp[0] + side * 16, ly = fp[1] + ldy + (1 - la) * 14;
+      c.font = '500 19px Inter'; c.fillStyle = '#1A1F36'; haloText(c, name, lx, ly);
+      c.font = '500 19px Inter'; c.fillStyle = inbound ? '#0E8A5F' : '#697386'; haloText(c, amt, lx, ly + 26);
+      c.restore();
+    }
+  });
+  // the company's own point, with the same breathing halo as the line chart's dot
+  const hb = seg(tt, .9, 1.3, E.o4);
+  if (hb > 0 && hp[2] > 0) {
+    const pulse = 1 + .12 * Math.sin(t * 4.2);
+    const halo = c.createRadialGradient(hp[0], hp[1], 0, hp[0], hp[1], 30 * pulse); halo.addColorStop(0, 'rgba(26,31,54,.35)'); halo.addColorStop(1, 'rgba(26,31,54,0)');
+    c.globalAlpha = a * hb; c.fillStyle = halo; c.beginPath(); c.arc(hp[0], hp[1], 30 * pulse, 0, 7); c.fill();
+    c.fillStyle = '#1A1F36'; c.beginPath(); c.arc(hp[0], hp[1], 8, 0, 7); c.fill(); c.fillStyle = '#fff'; c.beginPath(); c.arc(hp[0], hp[1], 3.2, 0, 7); c.fill();
+    c.textAlign = 'left'; c.font = '500 19px Inter'; c.fillStyle = '#1A1F36'; haloText(c, 'Your company', hp[0] + 18, hp[1] + 34); c.font = '400 17px Inter'; c.fillStyle = '#697386'; haloText(c, 'Dollar and euro accounts', hp[0] + 18, hp[1] + 58);
+  }
+  c.restore();
+}
+
+// Olie Vault: the net worth ring, in champagne gold glass
+const CX = 466 * K, CY = 258 * K, RO = 182 * K, RI = 140 * K, GAP = .0095, A0 = -Math.PI / 2;
+const RING = [[.34, '#FFE08A', '#CFB97D', '34%'], [.56, '#7E6C40', '#CFB97D', '56%'], [.07, '#E1D4AE', '#F5EBCF', '7%'], [.03, '#F5EBCF', '#E8DCB8', '3%']];
+const arcPath = (a, b) => { const p = new Path2D(); p.arc(CX, CY, RO, a, b); p.arc(CX, CY, RI, b, a, true); p.closePath(); return p; };
+function drawRing(c, sweep, grey, out, labels) {
+  if (sweep <= .001) return;
+  let a = A0;
+  RING.forEach(([share, c1, c2, lab], i) => {
+    const a1 = a + share * Math.PI * 2, s0 = a + GAP, s1 = a1 - GAP; a = a1;
+    const e = Math.min(s1, A0 + sweep * Math.PI * 2) - (i === 0 ? out * (s1 - s0) : 0);
+    if (e <= s0) return;
+    const path = arcPath(s0, e), k = i === 0 ? 0 : grey;
+    const m = h => { const [r, g, b] = rgb(h); return `rgb(${Math.round(lerp(r, 60, k))},${Math.round(lerp(g, 56, k))},${Math.round(lerp(b, 50, k))})`; };
+    const gr = c.createConicGradient(s0, CX, CY), span = (s1 - s0) / (Math.PI * 2);
+    gr.addColorStop(0, m(c1)); gr.addColorStop(Math.min(1, span), m(c2)); gr.addColorStop(1, m(c2));
+    c.fillStyle = gr; c.fill(path);
+    c.save(); c.clip(path);
+    const rg = c.createRadialGradient(CX, CY, RI, CX, CY, RO);
+    rg.addColorStop(0, 'rgba(255,250,235,.36)'); rg.addColorStop(.16, 'rgba(255,250,235,.08)'); rg.addColorStop(.55, 'rgba(255,255,255,0)'); rg.addColorStop(.86, 'rgba(0,0,0,.14)'); rg.addColorStop(1, 'rgba(0,0,0,.32)');
+    c.fillStyle = rg; c.fillRect(CX - RO, CY - RO, RO * 2, RO * 2);
+    const tl = c.createLinearGradient(CX - RO, CY - RO, CX + RO, CY + RO); tl.addColorStop(0, 'rgba(255,255,255,.12)'); tl.addColorStop(.5, 'rgba(255,255,255,0)'); tl.addColorStop(1, 'rgba(0,0,0,.2)');
+    c.fillStyle = tl; c.fillRect(CX - RO, CY - RO, RO * 2, RO * 2);
+    c.restore();
+    c.lineWidth = 1.4; c.strokeStyle = `rgba(255,245,215,${.24 - k * .12})`; c.stroke(path);
+    const mid = (s0 + s1) / 2, la = labels * clamp((e - s0) / (s1 - s0) * 1.4);
+    if (la > .01) { c.globalAlpha = la; c.font = '400 23px Inter'; c.fillStyle = '#B3B3B3'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(lab, CX + Math.cos(mid) * (RO + 40), CY + Math.sin(mid) * (RO + 34)); c.globalAlpha = 1; c.textBaseline = 'alphabetic'; }
+  });
+}
+function drawCentre(c, a) {
+  if (a <= .003) return;
+  c.save(); c.globalAlpha = a;
+  const R = 108 * K; c.strokeStyle = 'rgba(225,212,174,.5)'; c.lineWidth = 2;
+  for (let i = 0; i < 64; i++) { const an = i / 64 * Math.PI * 2; c.beginPath(); c.moveTo(CX + Math.cos(an) * (R - 4), CY + Math.sin(an) * (R - 4)); c.lineTo(CX + Math.cos(an) * (R + 4), CY + Math.sin(an) * (R + 4)); c.stroke(); }
+  const pa = A0 + RING[0][0] * Math.PI;
+  c.translate(CX + Math.cos(pa) * (R - 16), CY + Math.sin(pa) * (R - 16)); c.rotate(pa + Math.PI / 2);
+  c.fillStyle = '#E1D4AE'; c.beginPath(); c.moveTo(0, -9); c.lineTo(9, 9); c.lineTo(-9, 9); c.closePath(); c.fill();
+  c.restore();
+  c.save(); c.globalAlpha = a; c.textAlign = 'center';
+  c.font = '600 25px Inter'; c.fillStyle = '#fff'; c.fillText('Grow 34%', CX, CY - 8);
+  c.font = '500 24px "Space Grotesk"'; c.fillStyle = '#B3B3B3'; c.fillText('$68,540.00  ›', CX, CY + 40);
+  c.restore();
+}
+
+// Olie Orbit: what friends paid back, as titanium glass bars
+const BARS = [[282,345,137,'Sofía','+$142.00'],[361,425,203,'Mateo','+$108.50'],[440,503,254,'Vale','+$83.00'],[516,580,338,'Kai','+$41.00'],[592,657,392,'Leo','+$14.00']].map(([a,b,top,n,v]) => ({ x: a * K, w: (b - a) * K, top: top * K, n, v }));
+const BASE = 420 * K;
+function drawBars(c, grow, fall) {
+  BARS.forEach((b, i) => {
+    const g = E.o4(clamp((grow - i * .11) / .55));
+    const h0 = BASE - b.top, hf = lerp(h0, Math.min(h0, 120 * K * (1 - .15 * Math.abs(i - 2))), E.io3(clamp(fall * 1.8))) * (1 - E.i3(clamp(fall * 1.6 - .6)));
+    const hh = Math.max(0, (fall > 0 ? hf : h0) * g);
+    if (hh < 1) return;
+    const x = b.x, y = BASE - hh, w = b.w;
+    c.save();
+    const body = c.createLinearGradient(0, y, 0, BASE);
+    body.addColorStop(0, '#F4F1EC'); body.addColorStop(.06, '#DAD5CE'); body.addColorStop(.3, '#A9A39B'); body.addColorStop(.55, '#5E5952'); body.addColorStop(.8, '#6C6760'); body.addColorStop(1, '#C2BCB4');
+    c.fillStyle = body; c.beginPath(); c.roundRect(x, y, w, hh, 4); c.fill();
+    const glow = c.createRadialGradient(x + w * .62, y + hh * .5, 0, x + w * .62, y + hh * .5, Math.max(w, hh) * .6); glow.addColorStop(0, 'rgba(18,18,20,.42)'); glow.addColorStop(1, 'rgba(18,18,20,0)');
+    c.fillStyle = glow; c.beginPath(); c.roundRect(x, y, w, hh, 4); c.fill();
+    const side = c.createLinearGradient(x, 0, x + w, 0); side.addColorStop(0, 'rgba(255,255,255,.5)'); side.addColorStop(.08, 'rgba(255,255,255,0)'); side.addColorStop(.88, 'rgba(255,255,255,0)'); side.addColorStop(1, 'rgba(255,255,255,.32)');
+    c.fillStyle = side; c.beginPath(); c.roundRect(x, y, w, hh, 4); c.fill();
+    c.fillStyle = 'rgba(255,255,255,.85)'; c.fillRect(x + 3, y + 1, w - 6, 2.2);
+    c.restore();
+    const la = clamp((g - .6) / .4) * (1 - clamp(fall * 3));
+    if (la > .01) { c.globalAlpha = la; c.textAlign = 'left'; c.font = '500 19px Inter'; c.fillStyle = '#fff'; c.fillText(b.n, x + 2, y - 44); c.font = '500 19px Geist'; c.fillStyle = '#31BD65'; c.fillText(b.v, x + 2, y - 14); c.globalAlpha = 1; }
+  });
+}
+
+// the switch: one disc per product, the dark disc slides to the chosen one
+const TG = [[80,184],[80,256],[80,328]].map(([x,y])=>P(x,y));
+function icon(c, i, col) {
+  const [x, y] = TG[i];
+  c.save(); c.translate(x, y); c.strokeStyle = col; c.lineWidth = 2; c.lineJoin = 'round'; c.lineCap = 'round';
+  if (i === 2) { c.beginPath(); c.arc(0, 0, 21, 0, 7); c.stroke(); c.beginPath(); c.ellipse(0, 0, 9, 21, 0, 0, 7); c.stroke(); c.beginPath(); c.moveTo(-21, 0); c.lineTo(21, 0); c.moveTo(-18, -10); c.lineTo(18, -10); c.moveTo(-18, 10); c.lineTo(18, 10); c.stroke(); }
+  if (i === 1) { c.beginPath(); c.arc(0, 0, 22, 0, 7); c.stroke(); c.beginPath(); c.arc(0, 0, 8, 0, 7); c.stroke(); c.beginPath(); c.moveTo(0, 8); c.lineTo(0, 22); c.moveTo(7, -3.5); c.lineTo(21, -6); c.moveTo(-7, -3.5); c.lineTo(-16, -15); c.stroke(); }
+  if (i === 0) { c.beginPath(); c.rect(-18, -18, 11, 36); c.rect(-7, -6, 11, 24); c.rect(4, 4, 12, 14); c.stroke(); }
+  c.restore();
+}
+function touch(c, t, at, x, y, col) {
+  const u = (t - at) / .42; if (u < 0 || u > 1) return;
+  const r = lerp(9, 54, E.o3(u)), fill = 1 - clamp(u * 3), ring = clamp(u * 4) * (1 - clamp((u - .55) / .45));
+  c.save(); c.globalAlpha = fill * .8; c.fillStyle = col; c.beginPath(); c.arc(x, y, r * .55, 0, 7); c.fill();
+  c.globalAlpha = ring * .9; c.strokeStyle = col; c.lineWidth = 4; c.beginPath(); c.arc(x, y, r, 0, 7); c.stroke(); c.restore();
+}
+function weights(t) {
+  // how much of each product's world is on screen (the theme crossfade, 0.4 s)
+  let w = [0, 0, 1];
+  for (const [at, from, to] of SW) if (t >= at) { const u = seg(t, at + .05, at + .45, E.io3); w = [0, 0, 0]; w[from] = 1 - u; w[to] = u; }
+  return w;
+}
+function caption(c, t) {
+  // the product's name and line: the old one fades, the new one rises
+  for (const [at, from, to] of SW) {
+    const nextAt = (SW.find(s => s[0] > at) || [T + .0])[0];
+    if (t < at || t >= nextAt + .3) continue;
+    const pIn = seg(t, at + .25, at + 1.05, E.o4), pOut = t >= nextAt ? seg(t, nextAt, nextAt + .25, E.lin) : 0;
+    const a = pIn * (1 - pOut); if (a <= .01) continue;
+    const p = PR[to], img = LOGO[p.id], dy = (1 - pIn) * 24;
+    c.save(); c.globalAlpha = a;
+    if (img.complete && img.naturalWidth) { const hh = 40, ww = img.naturalWidth / img.naturalHeight * hh; c.drawImage(img, 90, 58 + dy, ww, hh); }
+    c.font = '400 22px Inter'; c.fillStyle = p.lineCol; c.textAlign = 'left'; c.fillText(p.line, 92, 138 + dy);
+    c.restore();
+  }
+  // the very first moments show the end of the last pass
+  if (t < .25) { const p = PR[2], img = LOGO[p.id], a = 1 - seg(t, 0, .25, E.lin); c.save(); c.globalAlpha = a; if (img.complete && img.naturalWidth) c.drawImage(img, 90, 58, img.naturalWidth / img.naturalHeight * 40, 40); c.font = '400 22px Inter'; c.fillStyle = p.lineCol; c.fillText(p.line, 92, 138); c.restore(); }
+}
+function hero(t) {
+  const c = hc; c.setTransform(hs, 0, 0, hs, 0, 0);
+  const w = weights(t);
+  c.fillStyle = mix3(PR.map(p => p.bg), w); c.fillRect(0, 0, HW, HH);
+  if (w[1] > .001) { const g = c.createRadialGradient(HW / 2, -120, 0, HW / 2, -120, 900); g.addColorStop(0, `rgba(43,33,23,${w[1]})`); g.addColorStop(1, 'rgba(21,16,11,0)'); c.fillStyle = g; c.fillRect(0, 0, HW, HH); }
+  caption(c, t);
+  // Olie Business line: on screen at the start (end of the last pass), fades as Orbit is chosen, draws again after Business is chosen
+  // Olie Business globe: on screen at the start (end of the last pass), fades as Orbit is chosen, builds again after Business is chosen
+  if (t < .5) drawGlobe(c, t + T, T - 7.0 + t, 1 - seg(t, .08, .46, E.io3));
+  else if (t >= 7.0) drawGlobe(c, t, t - 7.0, 1);
+  // Olie Orbit bars
+  if (t >= .4 && t < 3.95) drawBars(c, seg(t, .45, 1.07, E.lin), t < 3.42 ? 0 : seg(t, 3.42, 3.82, E.lin));
+  // Olie Vault ring
+  if (t >= 3.8 && t < 7.05) {
+    const sweep = seg(t, 3.86, 4.32, E.o3), grey = seg(t, 4.94, 5.28, E.io3), out = t < 6.68 ? 0 : seg(t, 6.68, 6.98, E.io3);
+    c.save(); c.globalAlpha = 1 - seg(t, 6.8, 6.98, E.lin); drawRing(c, sweep * (1 - out * .999), grey, out, 1 - out); c.restore();
+    drawCentre(c, seg(t, 5.0, 5.35, E.o3) * (1 - seg(t, 6.6, 6.74, E.lin)));
+  }
+  // the switch
+  let sel = 2, from = 2, u = 1;
+  for (const [at, f, to] of SW) if (t >= at) { sel = to; from = f; u = seg(t, at + .06, at + .36, E.lin); }
+  const y = lerp(TG[from][1], TG[sel][1], E.io4(u));
+  c.fillStyle = mix3(PR.map(p => p.disc), w); c.beginPath(); c.arc(TG[0][0], y, 51, 0, 7); c.fill();
+  const off = mix3(PR.map(p => p.off), w);
+  [0, 1, 2].forEach(i => { const on = i === sel ? E.io3(u) : i === from ? 1 - E.io3(u) : 0; icon(c, i, on > .5 ? PR[i].on : off); });
+  // the taps
+  for (const [at, , to] of SW) touch(c, t, at - .08, TG[to][0], TG[to][1], PR[to].on);
+  touch(c, t, T - .08, TG[0][0], TG[0][1], PR[0].on);
+  const ma = A0 + RING[0][0] * Math.PI; touch(c, t, 4.86, CX + Math.cos(ma) * (RO + RI) / 2, CY + Math.sin(ma) * (RO + RI) / 2, '#CFB97D');
+}
+hSize(); addEventListener('resize', () => { hSize(); hero(curH); });
+let curH = 1.4, hStart = null, hOn = false;
+const hLoop = now => { if (!hOn) return; if (hStart == null) hStart = now - curH * 1000; curH = ((now - hStart) / 1000) % T; hero(curH); requestAnimationFrame(hLoop); };
+new IntersectionObserver(es => es.forEach(e => { hOn = e.isIntersecting && !reduce; if (hOn) { hStart = null; requestAnimationFrame(hLoop); } else hero(curH); })).observe(hcv);
+document.fonts.ready.then(() => hero(curH));
+
+/* ---------- research charts: each plays when it comes into view ---------- */
+function chart(el, hFn, dur, draw) {
+  const cv = document.createElement('canvas'); el.appendChild(cv); const c = cv.getContext('2d');
+  let W = 0, H = 0, cur = 0, start = null, run = false;
+  const frame = t => { cur = t; const d = Math.min(2, devicePixelRatio || 1); c.setTransform(d, 0, 0, d, 0, 0); c.clearRect(0, 0, W, H); draw(c, t, W, H); };
+  const size = () => { W = el.clientWidth; H = hFn(W); const d = Math.min(2, devicePixelRatio || 1); cv.width = Math.round(W * d); cv.height = Math.round(H * d); cv.style.width = W + 'px'; cv.style.height = H + 'px'; frame(cur); };
+  const loop = now => { if (!run) return; if (start == null) start = now; const t = (now - start) / 1000; frame(Math.min(t, dur)); if (t < dur) requestAnimationFrame(loop); else run = false; };
+  new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { if (reduce) return frame(dur); if (!run && cur < dur) { start = null; run = true; requestAnimationFrame(loop); } }
+    else if (e.boundingClientRect.top > 0) { run = false; frame(0); }
+  }), { threshold: .4 }).observe(el);
+  new ResizeObserver(size).observe(el);
+}
+const font = (w, s) => `${w} ${s}px Inter`;
+function wrap(c, text, x, y, maxW, lh) { const words = text.split(' '); let line = ''; for (const wd of words) { const tt = line ? line + ' ' + wd : wd; if (c.measureText(tt).width > maxW && line) { c.fillText(line, x, y); y += lh; line = wd; } else line = tt; } if (line) c.fillText(line, x, y); return y; }
+const hatch = (() => { const p = document.createElement('canvas'); p.width = p.height = 8; const x = p.getContext('2d'); x.strokeStyle = 'rgba(255,255,255,.45)'; x.lineWidth = 1.2; x.beginPath(); x.moveTo(-2, 10); x.lineTo(10, -2); x.moveTo(-2, 2); x.lineTo(2, -2); x.moveTo(6, 10); x.lineTo(10, 6); x.stroke(); return p; })();
+const glassV = (c, y0, y1) => { const g = c.createLinearGradient(0, y0, 0, y1); g.addColorStop(0, '#F2F2F2'); g.addColorStop(.08, '#D6D6D6'); g.addColorStop(.45, '#8C8C8C'); g.addColorStop(.85, '#5A5A5A'); g.addColorStop(1, '#9A9A9A'); return g; };
+
+/* the line language of the motion system: hairlines, square handles at the corners, hatching for
+   what is uncertain, dashes for what is gone. No fills. */
+const HS = 6;
+function handles(c, pts, a = 1) { c.save(); c.globalAlpha *= a; c.fillStyle = '#fff'; pts.forEach(([x, y]) => c.fillRect(x - HS / 2, y - HS / 2, HS, HS)); c.restore(); }
+function wireBox(c, x, y, w, h, d = 1, a = 1) {
+  // draws the outline from the baseline up: both sides rise, then the top closes across
+  if (h < .5 || d <= 0) return;
+  c.save(); c.globalAlpha *= a; c.strokeStyle = '#fff'; c.lineWidth = 1.5;
+  const up = Math.min(1, d / .7), top = clamp((d - .7) / .3);
+  c.beginPath(); c.moveTo(x, y + h); c.lineTo(x, y + h - h * up); c.moveTo(x + w, y + h); c.lineTo(x + w, y + h - h * up);
+  if (top > 0) { c.moveTo(x, y); c.lineTo(x + w * top, y); }
+  c.moveTo(x, y + h); c.lineTo(x + w, y + h); c.stroke(); c.restore();
+  handles(c, [[x, y + h], [x + w, y + h]], a); if (d >= 1) handles(c, [[x, y], [x + w, y]], a);
+}
+function hatchRect(c, x, y, w, h, a = .55, step = 7) { if (w <= 0 || h <= 0) return; c.save(); c.beginPath(); c.rect(x, y, w, h); c.clip(); c.strokeStyle = `rgba(255,255,255,${a})`; c.lineWidth = 1; c.beginPath(); for (let k = -h; k < w + h; k += step) { c.moveTo(x + k, y + h); c.lineTo(x + k + h, y); } c.stroke(); c.restore(); }
+function dashBox(c, x, y, w, h, a = .4) { if (h < .5) return; c.save(); c.setLineDash([4, 5]); c.strokeStyle = `rgba(255,255,255,${a})`; c.lineWidth = 1.2; c.strokeRect(x + .5, y + .5, w - 1, h - 1); c.restore(); }
+
+/* 1. the peso, in one day */
+chart(document.getElementById('c-peso'), W => W < 640 ? 420 : 470, 3.8, (c, t, W, H) => {
+  const narrow = W < 640, base = H - 84, top = narrow ? 150 : 86, full = base - top, bw = Math.min(200, W * .24);
+  const xs = narrow ? [W * .28 - bw / 2, W * .72 - bw / 2] : [W * .22 - bw / 2, W * .55 - bw / 2];
+  c.font = font(400, 14); c.fillStyle = '#8a8a8a'; c.textAlign = 'left'; c.fillText('What 100 pesos were worth in dollars', 0, 18);
+  c.fillStyle = '#222'; c.fillRect(0, base, W, 1);
+  // Friday: a wire box rises to 100
+  const ga = seg(t, .2, 1.2, E.io3);
+  wireBox(c, xs[0], top, bw, full, ga);
+  c.globalAlpha = seg(t, .9, 1.4, E.o3); c.font = font(500, 28); c.fillStyle = '#fff'; c.textAlign = 'center'; c.fillText('100', xs[0] + bw / 2, top - 18);
+  c.font = font(500, 16); c.fillText('Friday', xs[0] + bw / 2, base + 32); c.font = font(400, 14); c.fillStyle = '#8a8a8a'; c.fillText('August 9, 2019', xs[0] + bw / 2, base + 54); c.globalAlpha = 1;
+  // Monday: it rises to where Friday closed, then the top 15% is gone and the next 8% is uncertain
+  const gb = seg(t, .55, 1.55, E.io3), drop = seg(t, 1.9, 2.8, E.io4), band = seg(t, 2.5, 3.1, E.o3);
+  const lost = full * .15 * drop, y85 = top + lost;
+  if (drop > 0) dashBox(c, xs[1], top, bw, lost);
+  wireBox(c, xs[1], drop > 0 ? y85 : top, bw, full - lost, gb);
+  if (band > 0) { hatchRect(c, xs[1] + 1, y85 + 1, bw - 2, full * .08 * band - 1); c.fillStyle = 'rgba(255,255,255,.6)'; c.fillRect(xs[1], y85 + full * .08 * band, bw, 1); }
+  const vb = Math.round(100 * clamp(gb) - 15 * drop);
+  c.globalAlpha = seg(t, 1.2, 1.7, E.o3); c.font = font(500, 28); c.fillStyle = '#fff'; c.textAlign = 'center';
+  c.fillText(drop < 1 ? String(vb) : '77 to 85', xs[1] + bw / 2, top - 18);
+  c.font = font(500, 16); c.fillText('Monday', xs[1] + bw / 2, base + 32); c.font = font(400, 14); c.fillStyle = '#8a8a8a'; c.fillText('August 12, 2019', xs[1] + bw / 2, base + 54); c.globalAlpha = 1;
+  // the loss, called out, sized to fit whatever room is left
+  const ca = seg(t, 2.8, 3.5, E.o4);
+  if (ca > 0) {
+    c.globalAlpha = ca; const lab = '−15 to 23%';
+    if (narrow) { c.textAlign = 'center'; c.font = font(500, 30); c.fillStyle = '#fff'; c.fillText(lab, xs[1] + bw / 2, 70 + (1 - ca) * 16); }
+    else {
+      const lx = xs[1] + bw + 28, room = W - lx; c.font = font(500, 40); const fz = Math.max(20, Math.min(40, Math.floor(40 * room / c.measureText(lab).width)));
+      const ly = top + full * .12 + (1 - ca) * 16; c.textAlign = 'left'; c.font = font(500, fz); c.fillStyle = '#fff'; c.fillText(lab, lx, ly);
+      c.font = font(400, 14); c.fillStyle = '#8a8a8a'; c.fillText('in one day', lx, ly + 26);
+      c.strokeStyle = 'rgba(255,255,255,.35)'; c.lineWidth = 1; c.beginPath(); c.moveTo(xs[1] + bw + 6, top + lost / 2); c.lineTo(lx - 8, top + lost / 2); c.stroke();
+    }
+    c.globalAlpha = 1;
+  }
+});
+
+/* 2. six times savings were frozen */
+const FROZEN = [
+  ['1990', 'Brazil', '$100B', 'Plano Collor', 'of savings frozen overnight.'],
+  ['2001', 'Argentina', '$250', 'Corralito', 'a week was all you could withdraw.'],
+  ['2022', 'Crypto', '$8B', 'FTX', 'of customer money missing from a shared pool.'],
+  ['2023', 'United States', '$42B', 'Silicon Valley Bank', 'withdrawn in one day.'],
+  ['2025', 'Brazil', '1.6M', 'Banco Master', 'people waiting on a guarantee payout.'],
+  ['2026', 'Paraguay', '3M', 'Ueno Bank', 'customers locked out by the central bank.'],
+];
+chart(document.getElementById('c-frozen'), W => W < 600 ? 6 * 132 + 30 : 400, 5.2, (c, t, W, H) => {
+  const narrow = W < 600, n = FROZEN.length;
+  const ph = seg(t, .3, 4.4, E.io3);                       // the playhead, 0..1
+  if (!narrow) {
+    const y = H - 56, x0 = 0, x1 = W, cw = (x1 - x0) / n;
+    // the ruler, ticks every sixtieth
+    for (let i = 0; i <= 60; i++) { const x = x0 + (x1 - x0) * i / 60; const major = i % 10 === 5; c.fillStyle = x <= lerp(x0, x1, ph) ? 'rgba(255,255,255,.55)' : 'rgba(255,255,255,.18)'; c.fillRect(x, y - (major ? 14 : 7), 1, major ? 14 : 7); }
+    c.fillStyle = '#222'; c.fillRect(x0, y, x1 - x0, 1);
+    const px = lerp(x0, x1, ph); c.fillStyle = '#fff'; c.fillRect(x0, y, px - x0, 1);
+    FROZEN.forEach(([yr, place, num, name, what], i) => {
+      const lx = x0 + cw * i + 8, mw = cw - 22, hit = (lx - x0) / (x1 - x0), at = .3 + 4.1 * hit;
+      const u = seg(t, at - .05, at + .55, E.o4), stem = seg(t, at - .1, at + .45, E.o3);
+      c.fillStyle = '#fff'; c.font = font(500, 14); c.textAlign = 'left'; c.globalAlpha = .4 + .6 * clamp((ph - hit) / .04 + 1, 0, 1); c.fillText(yr, lx - 2, y + 30); c.globalAlpha = 1;
+      // the card: where, how much, what, and a line of detail (names wrap so they never collide)
+      let bottom = 150;
+      c.save(); c.globalAlpha = u; c.translate(0, (1 - u) * 24); c.textAlign = 'left';
+      c.font = font(400, 13); c.fillStyle = '#8a8a8a'; c.fillText(place, lx, 20);
+      c.font = font(500, Math.min(44, cw * .26)); c.fillStyle = '#fff'; c.fillText(num, lx, 72);
+      c.font = font(500, 15); const ny = wrap(c, name, lx, 104, mw, 19);
+      c.font = font(400, 13); c.fillStyle = '#8a8a8a'; bottom = wrap(c, what, lx, ny + 22, mw, 18);
+      c.restore();
+      // the stem rises from the ruler to just under the card
+      if (stem > 0) { const top = bottom + 18, sl = Math.max(0, (y - 14 - top) * stem); c.fillStyle = 'rgba(255,255,255,.5)'; c.fillRect(lx, y - 14 - sl, 1, sl); c.fillStyle = '#fff'; c.beginPath(); c.arc(lx + .5, y, 4 * stem, 0, 7); c.fill(); }
+    });
+    const pxc = Math.min(px, x1 - 4); c.fillStyle = '#fff'; c.fillRect(pxc - .5, y - 26, 1.5, 26); c.beginPath(); c.arc(pxc, y - 26, 3.5, 0, 7); c.fill();
+  } else {
+    const x = 12, y0 = 10, y1 = H - 10, rh = (y1 - y0) / n;
+    c.fillStyle = '#222'; c.fillRect(x, y0, 1, y1 - y0);
+    const py = lerp(y0, y1, ph); c.fillStyle = '#fff'; c.fillRect(x, y0, 1, py - y0);
+    FROZEN.forEach(([yr, place, num, name, what], i) => {
+      const ey = y0 + rh * i + 14, hit = (ey - y0) / (y1 - y0), at = .3 + 4.1 * hit, u = seg(t, at - .05, at + .55, E.o4);
+      if (u <= 0) return;
+      c.save(); c.globalAlpha = u; c.translate((1 - u) * 16, 0);
+      c.fillStyle = '#fff'; c.beginPath(); c.arc(x, ey, 4, 0, 7); c.fill();
+      c.textAlign = 'left'; c.font = font(400, 13); c.fillStyle = '#8a8a8a'; c.fillText(yr + ' · ' + place, 36, ey + 4);
+      c.font = font(500, 36); c.fillStyle = '#fff'; c.fillText(num, 36, ey + 44);
+      c.font = font(500, 15); c.fillText(name, 36, ey + 70);
+      c.font = font(400, 13); c.fillStyle = '#8a8a8a'; wrap(c, what, 36, ey + 90, W - 50, 18);
+      c.restore();
+    });
+    c.fillStyle = '#fff'; c.beginPath(); c.arc(x, py, 3.5, 0, 7); c.fill();
+  }
+});
+
+/* 3. four ways: figures roll up like a clock */
+document.querySelectorAll('#c-ways .num').forEach((n, col) => {
+  [...n.dataset.num].forEach((ch, i) => { const r = document.createElement('span'); r.className = 'roll'; const s = document.createElement('span'); s.textContent = ch; s.style.transitionDelay = (col * .15 + i * .05) + 's'; r.appendChild(s); n.appendChild(r); });
+});
+document.querySelectorAll('#c-ways .rule').forEach((r, i) => r.style.transitionDelay = i * .15 + 's');
+document.querySelectorAll('#c-ways > div').forEach((d, i) => { d.setAttribute('data-r', ''); d.style.setProperty('--i', i); io.observe(d); });
+new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('in')), { threshold: .3 }).observe(document.getElementById('c-ways'));
+
+/* 4. a $10,000 payment abroad, and what the bank keeps */
+chart(document.getElementById('c-fee'), W => W < 640 ? 300 : 280, 3.6, (c, t, W, H) => {
+  const y = 96, h = 64, draw = seg(t, .2, 1.2, E.io4);
+  c.font = font(400, 14); c.fillStyle = '#8a8a8a'; c.textAlign = 'left'; c.fillText('A $10,000 payment to a supplier abroad, through a local bank', 0, 18);
+  // the strip draws as a hairline outline, left to right
+  if (draw > 0) { c.strokeStyle = '#fff'; c.lineWidth = 1.5; const w = (W - 1) * draw; c.beginPath(); c.moveTo(.75, y); c.lineTo(w, y); c.moveTo(.75, y + h); c.lineTo(w, y + h); c.moveTo(.75, y); c.lineTo(.75, y + h); if (draw >= 1) { c.moveTo(W - .75, y); c.lineTo(W - .75, y + h); } c.stroke(); handles(c, [[1, y], [1, y + h]]); if (draw >= 1) handles(c, [[W - 1, y], [W - 1, y + h]]); }
+  c.globalAlpha = seg(t, .8, 1.4, E.o3); c.font = font(500, 28); c.fillStyle = '#fff'; c.fillText('$10,000', 20, y + h / 2 + 10); c.globalAlpha = 1;
+  // the fee comes in from the right: 5% for sure, up to 10%
+  const f5 = seg(t, 1.5, 2.1, E.io4), f10 = seg(t, 2.1, 2.8, E.io4);
+  const w5 = W * .05 * f5, w10 = W * .05 * f10;
+  if (f5 > 0) { hatchRect(c, W - w5, y + 1, w5 - 1, h - 2, .8, 5); c.fillStyle = '#fff'; c.fillRect(W - w5 - .5, y, 1, h); handles(c, [[W - w5, y], [W - w5, y + h]]); }
+  if (f10 > 0) { hatchRect(c, W - w5 - w10, y + 1, w10, h - 2, .35, 9); c.save(); c.setLineDash([4, 4]); c.strokeStyle = 'rgba(255,255,255,.6)'; c.beginPath(); c.moveTo(W - w5 - w10, y); c.lineTo(W - w5 - w10, y + h); c.stroke(); c.restore(); }
+  const la = seg(t, 2.5, 3.2, E.o4);
+  if (la > 0) { c.globalAlpha = la; c.textAlign = 'right'; c.font = font(500, W < 640 ? 26 : 34); c.fillStyle = '#fff'; c.fillText('$500 to $1,000', W, y + h + 50 + (1 - la) * 12); c.font = font(400, 14); c.fillStyle = '#8a8a8a'; c.fillText('kept in fees, and days to arrive', W, y + h + 76 + (1 - la) * 12); c.globalAlpha = 1; c.textAlign = 'left'; }
+});
+
+/* 5. who banks from a phone, and who owns any crypto, drawn to scale */
+chart(document.getElementById('c-door'), W => W < 640 ? 520 : 460, 3.2, (c, t, W, H) => {
+  const narrow = W < 640, R = narrow ? Math.min(W * .4, 150) : Math.min(H * .44, 200), r = R / Math.sqrt(5);
+  const cx = narrow ? W / 2 : R + 10, cy = narrow ? R + 14 : H / 2;
+  const sw = seg(t, .2, 1.4, E.io4), sg = seg(t, 1.5, 2.3, E.io4);
+  // the big circle draws round from the bottom, its four handles appear as it passes them
+  if (sw > 0) { c.strokeStyle = '#fff'; c.lineWidth = 1.5; c.beginPath(); c.arc(cx, cy, R, Math.PI / 2, Math.PI / 2 + sw * Math.PI * 2); c.stroke();
+    handles(c, [[cx, cy + R], [cx - R, cy], [cx, cy - R], [cx + R, cy]].filter((_, k) => sw >= k / 4)); }
+  // the small circle, to scale, sits on the same floor; drawn the same way, then hatched
+  if (sg > 0) { const sy = cy + R - r; c.strokeStyle = '#fff'; c.lineWidth = 1.5; c.beginPath(); c.arc(cx, sy, r, Math.PI / 2, Math.PI / 2 + sg * Math.PI * 2); c.stroke();
+    if (sg >= 1) { c.save(); c.beginPath(); c.arc(cx, sy, r - 1, 0, 7); c.clip(); hatchRect(c, cx - r, sy - r, 2 * r, 2 * r, .5, 7); c.restore(); handles(c, [[cx - r, sy], [cx, sy - r], [cx + r, sy]]); } }
+  const la = seg(t, .9, 1.6, E.o4), lb = seg(t, 2.0, 2.7, E.o4);
+  const n4 = Math.round(4 * seg(t, .9, 1.9, E.o3) * 10) / 10, n8 = Math.round(800 * seg(t, 2.0, 2.9, E.o3));
+  c.textAlign = 'left';
+  if (narrow) {
+    const y = cy + R + 54;
+    c.globalAlpha = la; c.font = font(500, 34); c.fillStyle = '#fff'; c.fillText(n4.toFixed(n4 % 1 ? 1 : 0) + ' billion', 0, y); c.font = font(400, 15); c.fillStyle = '#8a8a8a'; c.fillText('bank from their phone', 0, y + 26);
+    c.globalAlpha = lb; c.font = font(500, 34); c.fillStyle = '#fff'; c.fillText('Under ' + n8 + ' million', 0, y + 82); c.font = font(400, 15); c.fillStyle = '#8a8a8a'; c.fillText('own any crypto', 0, y + 108); c.globalAlpha = 1;
+  } else {
+    const lx = cx + R + 60, fz = Math.min(48, Math.floor((W - lx) / 9.2));
+    c.globalAlpha = la; c.strokeStyle = 'rgba(255,255,255,.35)'; c.lineWidth = 1; c.beginPath(); c.moveTo(cx + R * .72, cy - R * .69); c.lineTo(lx - 12, cy - R * .69); c.stroke();
+    c.font = font(500, fz); c.fillStyle = '#fff'; c.fillText(n4.toFixed(n4 % 1 ? 1 : 0) + ' billion', lx, cy - R * .69 + 14); c.font = font(400, 16); c.fillStyle = '#8a8a8a'; c.fillText('people bank from their phone', lx, cy - R * .69 + 44);
+    c.globalAlpha = lb; c.beginPath(); c.moveTo(cx + r, cy + R - r); c.lineTo(lx - 12, cy + R - r); c.stroke();
+    c.font = font(500, fz); c.fillStyle = '#fff'; c.fillText('Under ' + n8 + ' million', lx, cy + R - r + 14); c.font = font(400, 16); c.fillStyle = '#8a8a8a'; c.fillText('own any crypto', lx, cy + R - r + 44); c.globalAlpha = 1;
+  }
+});
+
+/* ---------- the rest of the story ---------- */
+// a clipped picture has no area to intersect, so watch its holder instead
+const uo = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.querySelectorAll(':scope > [data-u]').forEach(n => n.classList.add('in')); uo.unobserve(e.target); } }), { rootMargin: '0px 0px -15% 0px' });
+new Set([...document.querySelectorAll('[data-u]')].map(n => n.parentElement)).forEach(p => uo.observe(p));
+document.querySelectorAll('.figs [data-num]').forEach(n => {
+  [...n.dataset.num].forEach((ch, i) => { const r = document.createElement('span'); r.className = 'roll'; const s = document.createElement('span'); s.textContent = ch; s.style.transitionDelay = (.15 + i * .05) + 's'; r.appendChild(s); n.appendChild(r); });
+});
+const vid = document.querySelector('.agents video');
+new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { vid.preload = 'auto'; if (!reduce) vid.play().catch(() => {}); } else vid.pause(); }), { threshold: .3 }).observe(vid);
+
+/* the bet: four people, one pool, then an address each */
+const ADDR = ['0x7a2…3f9c', '0x19e…b04d', '0xc83…5e21', '0x4fd…a7b8'];
+chart(document.getElementById('c-custody'), W => W < 640 ? 400 : 460, 6.2, (c, t, W, H) => {
+  const narrow = W < 640, xs = [.14, .38, .62, .86].map(f => W * f), py = 54;
+  const split = seg(t, 2.7, 3.9, E.io4);
+  // the words at the top, the old ones leave as the new ones come
+  c.textAlign = 'left'; c.font = font(400, 14);
+  c.globalAlpha = seg(t, .1, .7, E.o3) * (1 - seg(t, 2.5, 2.8, E.lin)); c.fillStyle = '#8a8a8a'; wrap(c, 'A ledger: everyone’s money in one pool', 0, 14, W, 18);
+  c.globalAlpha = seg(t, 3.9, 4.5, E.o3); wrap(c, 'An address per person: each one on the public record', 0, 14, W, 18); c.globalAlpha = 1;
+  // the people
+  xs.forEach((x, i) => {
+    const u = seg(t, .1 + i * .08, .7 + i * .08, E.o4); if (u <= 0) return;
+    c.save(); c.globalAlpha = u; c.strokeStyle = '#fff'; c.lineWidth = 1.5;
+    c.beginPath(); c.arc(x, py + 20 + (1 - u) * 10, 11, 0, 7); c.stroke();
+    c.beginPath(); c.arc(x, py + 56 + (1 - u) * 10, 20, Math.PI * 1.08, Math.PI * 1.92); c.stroke(); c.restore();
+  });
+  // the boxes: one pool that divides into four
+  const by = H - (narrow ? 150 : 170), bh = narrow ? 84 : 96, poolW = Math.min(W * .5, 520), px0 = W / 2 - poolW / 2;
+  const boxW = Math.min(W * .21, 200);
+  const rect = i => { const a = { x: px0 + poolW / 4 * i, w: poolW / 4 }, b = { x: xs[i] - boxW / 2, w: boxW }; return { x: lerp(a.x, b.x, split), w: lerp(a.w, b.w, split) }; };
+  const draw = seg(t, .6, 1.5, E.io3);
+  // lines from each person to their money
+  xs.forEach((x, i) => {
+    const r = rect(i), tx = r.x + r.w / 2, d = seg(t, 1.0 + i * .1, 1.9 + i * .1, E.io3); if (d <= 0) return;
+    c.save(); c.strokeStyle = 'rgba(255,255,255,.55)'; c.lineWidth = 1.2; c.setLineDash([3, 4]);
+    c.beginPath(); const y0 = py + 70; for (let k = 0; k <= 30 * d; k++) { const u = k / 30, y = lerp(y0, by, u), xx = lerp(x, tx, E.io3(u)); k ? c.lineTo(xx, y) : c.moveTo(xx, y); } c.stroke(); c.restore();
+  });
+  if (draw > 0) {
+    if (split < .02) {
+      // the pool, drawn with its construction handles
+      c.save(); c.strokeStyle = '#fff'; c.lineWidth = 1.5; const pw = poolW * draw;
+      c.fillStyle = 'rgba(255,255,255,.05)'; c.fillRect(W / 2 - pw / 2, by, pw, bh); c.strokeRect(W / 2 - pw / 2, by, pw, bh);
+      c.fillStyle = '#fff'; [[W / 2 - pw / 2, by], [W / 2 + pw / 2, by], [W / 2 - pw / 2, by + bh], [W / 2 + pw / 2, by + bh]].forEach(([x, y]) => c.fillRect(x - 3, y - 3, 6, 6));
+      c.globalAlpha = seg(t, 1.4, 1.9, E.o3); c.font = font(500, 16); c.textAlign = 'center'; c.fillText('One shared pool', W / 2, by + bh + 32); c.restore();
+    } else {
+      xs.forEach((x, i) => {
+        const r = rect(i); c.save(); c.strokeStyle = '#fff'; c.lineWidth = 1.5; c.fillStyle = 'rgba(255,255,255,.05)';
+        c.fillRect(r.x + 4 * split, by, r.w - 8 * split, bh); c.strokeRect(r.x + 4 * split, by, r.w - 8 * split, bh);
+        c.fillStyle = '#fff'; c.globalAlpha = 1 - split; [[r.x, by], [r.x + r.w, by], [r.x, by + bh], [r.x + r.w, by + bh]].forEach(([x, y]) => c.fillRect(x - 3, y - 3, 6, 6)); c.restore();
+      });
+    }
+    // each person's money: dots that mix in the pool, then go home
+    xs.forEach((x, i) => {
+      for (let k = 0; k < 3; k++) {
+        const seed = (i * 7 + k * 13) % 17 / 17, mixX = px0 + poolW * (.1 + .8 * ((seed * 5 + k * .31 + i * .23) % 1)), mixY = by + bh * (.3 + .4 * ((seed * 3 + k * .37) % 1));
+        const r = rect(i), homeX = r.x + r.w / 2 + (k - 1) * 14, homeY = by + bh * .38;
+        const a = seg(t, 1.3 + i * .1, 1.8 + i * .1, E.o3); if (a <= 0) continue;
+        const wob = (1 - split) * 3 * Math.sin(t * 2 + i + k);
+        c.globalAlpha = a; c.fillStyle = '#fff'; c.beginPath(); c.arc(lerp(mixX, homeX, split) + wob, lerp(mixY, homeY, split), 4, 0, 7); c.fill(); c.globalAlpha = 1;
+      }
+    });
+  }
+  // the addresses and their checks
+  const ad = seg(t, 3.9, 4.6, E.o4);
+  if (ad > 0) xs.forEach((x, i) => {
+    const r = rect(i), u = seg(t, 3.9 + i * .1, 4.5 + i * .1, E.o4);
+    c.save(); c.globalAlpha = u; c.textAlign = 'center'; c.font = `300 ${narrow ? 11 : 14}px "IBM Plex Mono"`; c.fillStyle = '#d9d9d9'; c.fillText(narrow ? ADDR[i].slice(0, 4) + '…' + ADDR[i].slice(-2) : ADDR[i], r.x + r.w / 2, by + bh * .78);
+    const k = seg(t, 4.5 + i * .12, 5.0 + i * .12, E.o4), cx = r.x + r.w / 2, cy = by + bh + 30;
+    if (k > 0) { c.globalAlpha = 1; c.strokeStyle = '#fff'; c.lineWidth = 1.5; c.beginPath(); c.arc(cx, cy, 13, -Math.PI / 2, -Math.PI / 2 + k * Math.PI * 2); c.stroke(); const ck = seg(t, 4.8 + i * .12, 5.2 + i * .12, E.o3); if (ck > 0) { c.beginPath(); c.moveTo(cx - 6, cy); c.lineTo(cx - 6 + 4 * Math.min(1, ck * 2), cy + 4 * Math.min(1, ck * 2)); if (ck > .5) c.lineTo(cx - 2 + 8 * (ck - .5) * 2, cy + 4 - 9 * (ck - .5) * 2); c.stroke(); } }
+    c.restore();
+  });
+});
+
+/* the pivot: requests for Olie Vault, wire squares that become glass bars */
+const REQ = [['Apr', 8], ['May', 44], ['Jun', 63], ['Jul', 69], ['Aug', 96]];
+chart(document.getElementById('c-req'), W => W < 640 ? 380 : 440, 4.0, (c, t, W, H) => {
+  const base = H - 54, top = 92, unit = (base - top) / 96, n = REQ.length, bw = Math.min(110, W / 7.5), gap = (W - n * bw) / (n - .2), x0 = gap * .1;
+  c.font = font(400, 14); c.fillStyle = '#8a8a8a'; c.textAlign = 'left'; c.fillText('Requests for Olie Vault, total by month, 2026', 0, 18);
+  c.fillStyle = '#222'; c.fillRect(0, base, W, 1);
+  REQ.forEach(([m, v], i) => {
+    // wire squares rise and become bars: outline, handles, and a light hatch inside once each one lands
+    const x = x0 + i * (bw + gap), d = seg(t, .25 + i * .16, 1.35 + i * .16, E.io3), h = v * unit, settle = seg(t, 1.5 + i * .12, 2.1 + i * .12, E.o3);
+    wireBox(c, x, base - h, bw, h, d);
+    if (settle > 0) hatchRect(c, x + 1, base - h + 1, bw - 2, h - 2, .22 * settle, 8);
+    const la = seg(t, .9 + i * .16, 1.5 + i * .16, E.o3);
+    c.globalAlpha = la; c.textAlign = 'left'; c.font = font(500, W < 640 ? 22 : 30); c.fillStyle = '#fff'; c.fillText(String(Math.round(v * la)), x, base - h - 14); c.globalAlpha = 1;
+    c.font = font(400, 14); c.fillStyle = '#8a8a8a'; c.fillText(m, x, base + 28);
+  });
+});
+
+/* the rebuild: a ruler slides under a fixed marker, 22 weeks, then 4, then 2 */
+const STOPS = [[22, 'Olie dollar app, first version', 'Figma, one engineer, no AI'], [4, 'Olie Business', 'Built with AI'], [2, 'Olie Ambassadors', 'Built with AI']];
+chart(document.getElementById('c-weeks'), W => W < 640 ? 340 : 380, 6.4, (c, t, W, H) => {
+  const ry = H - 70, step = Math.max(26, Math.min(56, W / 16)), cx = W / 2;
+  const v = t < 2.2 ? 22 : t < 4.6 ? lerp(22, 4, seg(t, 2.2, 3.6, E.io4)) : lerp(4, 2, seg(t, 4.6, 5.5, E.io4));
+  const appear = seg(t, .1, .9, E.o4);
+  c.save(); c.globalAlpha = appear;
+  for (let w = -14; w <= 26; w++) {
+    const x = cx + (w - v) * step; if (x < -20 || x > W + 20) continue;
+    const big = w % 2 === 0, fade = clamp(1 - Math.abs(x - cx) / (W * .55));
+    c.globalAlpha = appear * (.25 + .75 * fade); c.fillStyle = '#fff'; c.fillRect(x - .75, ry - (big ? 30 : 15), 1.5, big ? 30 : 15);
+    if (big && w > 0) { c.font = font(400, W < 640 ? 17 : 24); c.textAlign = 'center'; c.fillText(String(w), x, ry - 44); }
+  }
+  c.restore();
+  // the marker
+  c.fillStyle = '#fff'; c.beginPath(); c.moveTo(cx, ry + 6); c.lineTo(cx - 8, ry + 20); c.lineTo(cx + 8, ry + 20); c.closePath(); c.globalAlpha = appear; c.fill();
+  c.font = font(400, 14); c.fillStyle = '#8a8a8a'; c.textAlign = 'center'; c.fillText('weeks from first screen to launch', cx, ry + 46); c.globalAlpha = 1;
+  // the chip with the number
+  const chipY = ry - 132, val = Math.round(v), lab = val + ' weeks';
+  c.font = font(500, W < 640 ? 26 : 34); const tw = c.measureText(lab).width + 40;
+  c.globalAlpha = seg(t, .4, 1.1, E.o4); c.strokeStyle = '#fff'; c.lineWidth = 1.5; c.beginPath(); c.roundRect(cx - tw / 2, chipY - 34, tw, 56, 12); c.stroke(); handles(c, [[cx - tw / 2, chipY - 34], [cx + tw / 2, chipY - 34], [cx - tw / 2, chipY + 22], [cx + tw / 2, chipY + 22]]);
+  c.fillStyle = '#fff'; c.fillText(lab, cx, chipY + 6); c.globalAlpha = 1;
+  // the words above, one set per stop
+  STOPS.forEach(([w, a, b], i) => {
+    const at = [0, 2.2, 4.6][i], end = [2.2, 4.6, 99][i], inA = seg(t, at + (i ? 1.2 : .5), at + (i ? 1.9 : 1.2), E.o4), out = seg(t, end, end + .3, E.lin), al = inA * (1 - out);
+    if (al <= .01) return;
+    c.globalAlpha = al; c.font = font(500, W < 640 ? 20 : 26); c.fillStyle = '#fff'; c.fillText(a, cx, 30 + (1 - inA) * 12);
+    c.font = font(400, 15); c.fillStyle = '#8a8a8a'; c.fillText(b, cx, 56 + (1 - inA) * 12); c.globalAlpha = 1;
+  });
+});
+
+/* results: money moved, the line draws with its glowing dot */
+const REC = [['2025-11-15', 0], ['2026-02-28', 21.7], ['2026-08-31', 127], ['2026-09-27', 179.6], ['2026-10-06', 227.2], ['2026-11-13', 266.4]];
+const D0 = Date.parse('2025-11-01'), D1 = Date.parse('2026-11-13');
+function mono(pts) { const n = pts.length, dx = [], d = [], m = []; for (let i = 0; i < n - 1; i++) { dx.push(pts[i + 1][0] - pts[i][0]); d.push((pts[i + 1][1] - pts[i][1]) / dx[i]); } m[0] = d[0]; m[n - 1] = d[n - 2]; for (let i = 1; i < n - 1; i++) m[i] = d[i - 1] * d[i] <= 0 ? 0 : 3 * (dx[i - 1] + dx[i]) / ((2 * dx[i] + dx[i - 1]) / d[i - 1] + (dx[i] + 2 * dx[i - 1]) / d[i]); return x => { let i = 0; while (i < n - 2 && x > pts[i + 1][0]) i++; const u = clamp((x - pts[i][0]) / dx[i]), u2 = u * u, u3 = u2 * u; return (2 * u3 - 3 * u2 + 1) * pts[i][1] + (u3 - 2 * u2 + u) * dx[i] * m[i] + (-2 * u3 + 3 * u2) * pts[i + 1][1] + (u3 - u2) * dx[i] * m[i + 1]; }; }
+const recAt = mono(REC.map(([d, v]) => [(Date.parse(d) - D0) / (D1 - D0), v]));
+const recU0 = (Date.parse(REC[0][0]) - D0) / (D1 - D0);
+chart(document.getElementById('c-moved'), W => W < 640 ? 360 : 460, 4.6, (c, t, W, H) => {
+  const narrow = W < 640, L = 0, R = W - (narrow ? 50 : 90), T = 124, B = H - 50;
+  const X = u => L + u * (R - L), Y = v => B - v / 300 * (B - T);
+  c.fillStyle = '#222'; c.fillRect(0, B, W, 1);
+  [['2025-11-01', 'Nov 2025'], ['2026-02-15', 'Feb'], ['2026-05-15', 'May'], ['2026-08-15', 'Aug'], ['2026-11-13', 'Nov 2026']].forEach(([d, l], i) => { c.font = font(400, 13); c.fillStyle = '#6f6f6f'; c.textAlign = i === 0 ? 'left' : 'center'; c.fillText(l, X((Date.parse(d) - D0) / (D1 - D0)), B + 28); });
+  const head = lerp(recU0, 1, seg(t, .3, 3.6, E.io3)), xh = X(head);
+  // the two moments that matter
+  [['2026-04-17', 'Vault announced'], ['2026-10-05', 'New products ship']].forEach(([d, l]) => {
+    const u = (Date.parse(d) - D0) / (D1 - D0), x = X(u), a = clamp((head - u) / .04); if (a <= 0) return;
+    c.save(); c.globalAlpha = a; c.strokeStyle = 'rgba(255,255,255,.3)'; c.setLineDash([3, 4]); c.beginPath(); c.moveTo(x, T - 4); c.lineTo(x, B); c.stroke(); c.setLineDash([]);
+    c.font = font(400, 13); c.fillStyle = '#bdbdbd'; c.textAlign = 'center'; if (!narrow || l.startsWith('New')) c.fillText(narrow ? 'New products' : l, x - (narrow ? 0 : 0), T - 14); c.restore();
+  });
+  // area and line, clipped at the head
+  const path = new Path2D(); for (let k = 0; k <= 200; k++) { const u = lerp(recU0, 1, k / 200); k ? path.lineTo(X(u), Y(recAt(u))) : path.moveTo(X(u), Y(recAt(u))); }
+  c.save(); c.beginPath(); c.rect(0, 0, xh + .5, H); c.clip();
+  const ar = new Path2D(path); ar.lineTo(R, B); ar.lineTo(X(recU0), B); ar.closePath();
+  const g = c.createLinearGradient(0, T, 0, B); g.addColorStop(0, 'rgba(255,255,255,.16)'); g.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = g; c.fill(ar);
+  c.strokeStyle = '#fff'; c.lineWidth = 2.6; c.lineJoin = 'round'; c.stroke(path); c.restore();
+  REC.slice(1, -1).forEach(([d, v]) => { const u = (Date.parse(d) - D0) / (D1 - D0); if (u > head) return; c.fillStyle = '#000'; c.strokeStyle = '#fff'; c.lineWidth = 1.5; c.beginPath(); c.arc(X(u), Y(v), 3.5, 0, 7); c.fill(); c.stroke(); });
+  // the head: hairline, glowing dot, the total and the date
+  const yv = Y(recAt(head)), pulse = 1 + .12 * Math.sin(t * 4.2);
+  const hl = c.createLinearGradient(0, T - 10, 0, B); hl.addColorStop(0, 'rgba(255,255,255,0)'); hl.addColorStop(.2, 'rgba(255,255,255,.5)'); hl.addColorStop(1, 'rgba(255,255,255,.25)'); c.fillStyle = hl; c.fillRect(xh - .5, T - 10, 1, B - T + 10);
+  const halo = c.createRadialGradient(xh, yv, 0, xh, yv, 28 * pulse); halo.addColorStop(0, 'rgba(255,255,255,.7)'); halo.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = halo; c.beginPath(); c.arc(xh, yv, 28 * pulse, 0, 7); c.fill();
+  c.fillStyle = '#fff'; c.beginPath(); c.arc(xh, yv, 5.5, 0, 7); c.fill();
+  const date = new Date(D0 + head * (D1 - D0)).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+  const val = recAt(head); c.textAlign = head > .85 ? 'right' : 'center'; const tx = head > .85 ? Math.min(W, xh + (narrow ? 40 : 80)) : xh;
+  c.font = font(500, narrow ? 24 : 32); c.fillStyle = '#fff'; c.fillText('$' + (val < 100 ? val.toFixed(1) : Math.round(val)) + 'K', tx, 34);
+  c.font = font(400, 13); c.fillStyle = '#8a8a8a'; c.fillText(date, tx, 56);
+});
+
+/* results: the last 90 days against the 90 before */
+const G90 = [['Volume', 225, '+125%'], ['Sign ups', 134, '+34%'], ['Fees collected', 125, '+25%']];
+chart(document.getElementById('c-90'), W => W < 640 ? 340 : 380, 3.4, (c, t, W, H) => {
+  const base = H - 50, top = 70, unit = (base - top) / 225, gw = W / 3, bw = Math.min(90, gw * .3);
+  c.fillStyle = '#222'; c.fillRect(0, base, W, 1);
+  G90.forEach(([name, v, lab], i) => {
+    const gx = gw * i + gw / 2 - bw - 6, a = seg(t, .2 + i * .15, .9 + i * .15, E.io3), b = seg(t, .7 + i * .15, 1.7 + i * .15, E.io3);
+    // the earlier 90 days, dashed; the last 90 days, a wire bar with its handles
+    const h0 = 100 * unit, h1 = v * unit;
+    if (a > 0) dashBox(c, gx, base - h0 * a, bw, h0 * a, .45);
+    wireBox(c, gx + bw + 12, base - h1, bw, h1, b);
+    // the growth itself, hatched, above the old height
+    const gr = seg(t, 1.6 + i * .15, 2.2 + i * .15, E.o3); if (gr > 0) { hatchRect(c, gx + bw + 13, base - h1 + 1, bw - 2, (h1 - h0) - 1, .5 * gr, 6); c.save(); c.globalAlpha = gr; c.setLineDash([3, 4]); c.strokeStyle = 'rgba(255,255,255,.5)'; c.beginPath(); c.moveTo(gx, base - h0); c.lineTo(gx + 2 * bw + 12, base - h0); c.stroke(); c.restore(); }
+    const la = seg(t, 1.5 + i * .15, 2.1 + i * .15, E.o4);
+    c.globalAlpha = la; c.textAlign = 'center'; c.font = font(500, W < 640 ? 22 : 32); c.fillStyle = '#fff'; c.fillText(lab, gx + bw * 1.5 + 12, base - h1 - 16 + (1 - la) * 10); c.globalAlpha = 1;
+    c.font = font(400, 14); c.fillStyle = '#8a8a8a'; c.textAlign = 'center'; c.globalAlpha = a; c.fillText(name, gx + bw + 6, base + 28); c.globalAlpha = 1;
+  });
+});
+
+
+/* ---------- motion system pieces that live as their own pages; this page drives their clock ---------- */
+document.querySelectorAll('.scene[data-src]').forEach((el) => {
+  const w = +el.dataset.w, h = +el.dataset.h, dur = +el.dataset.dur;
+  const f = document.createElement('iframe'); f.src = el.dataset.src; f.title = el.getAttribute('aria-label') || ''; f.tabIndex = -1;
+  f.style.width = w + 'px'; f.style.height = h + 'px'; el.appendChild(f);
+  const fit = () => { const k = el.clientWidth / w; f.style.transform = `scale(${k})`; el.style.height = (h * k) + 'px'; };
+  fit(); new ResizeObserver(fit).observe(el);
+  let ready = false, on = false, t0 = null;
+  const loop = (now) => { if (!on || !ready) return; if (t0 == null) t0 = now; try { f.contentWindow.setTime(((now - t0) / 1000) % dur); } catch (e) {} requestAnimationFrame(loop); };
+  f.addEventListener('load', async () => { try { await f.contentWindow.ready; f.contentWindow.setTime(reduce ? dur * .8 : 0); } catch (e) {} ready = true; if (on) { t0 = null; requestAnimationFrame(loop); } });
+  new IntersectionObserver((es) => es.forEach((e) => { const was = on; on = e.isIntersecting && !reduce; if (on && !was && ready) { t0 = null; requestAnimationFrame(loop); } }), { threshold: .25 }).observe(el);
+});
+
+/* a canvas that keeps running while it is on screen (t counts seconds since it first appeared) */
+function live(el, hFn, draw) {
+  const cv = document.createElement('canvas'); el.appendChild(cv); const c = cv.getContext('2d');
+  let W = 0, H = 0, on = false, t0 = null, cur = 0;
+  const frame = (t) => { cur = t; const d = Math.min(2, devicePixelRatio || 1); c.setTransform(d, 0, 0, d, 0, 0); c.clearRect(0, 0, W, H); draw(c, t, W, H); };
+  const size = () => { W = el.clientWidth; H = hFn(W); const d = Math.min(2, devicePixelRatio || 1); cv.width = Math.round(W * d); cv.height = Math.round(H * d); cv.style.width = W + 'px'; cv.style.height = H + 'px'; cv.style.display = 'block'; frame(cur); };
+  const loop = (now) => { if (!on) return; if (t0 == null) t0 = now - cur * 1000; frame((now - t0) / 1000); requestAnimationFrame(loop); };
+  new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { if (reduce) return frame(4); if (!on) { on = true; t0 = null; requestAnimationFrame(loop); } } else { on = false; if (e.boundingClientRect.top > 0) { cur = 0; frame(0); } } }), { threshold: .3 }).observe(el);
+  new ResizeObserver(size).observe(el);
+}
+
+/* 03 · light round a pill: the one button on the Olie Vault page */
+live(document.getElementById('c-pill'), (W) => W < 640 ? 240 : 320, (c, t, W, H) => {
+  c.fillStyle = '#111'; c.fillRect(0, 0, W, H);
+  c.font = font(400, 14); c.fillStyle = '#8a8a8a'; c.textAlign = 'left'; c.textBaseline = 'alphabetic'; c.fillText('The Olie Vault page, April 17, 2026: one button, no product', 20, 30);
+  const PW = Math.min(440, W * .62), PH = PW * .27, R = PH / 2, X = W / 2 - PW / 2, Y = H / 2 - PH / 2 + 12, BW = 3;
+  const straight = PW - 2 * R, per = 2 * straight + 2 * Math.PI * R, N = 600;
+  const pt = (k) => { let d = (k / N) * per; if (d < straight) return [X + R + d, Y]; if ((d -= straight) < Math.PI * R) { const a = -Math.PI / 2 + d / R; return [X + PW - R + Math.cos(a) * R, Y + R + Math.sin(a) * R]; } if ((d -= Math.PI * R) < straight) return [X + PW - R - d, Y + PH]; d -= straight; const a = Math.PI / 2 + d / R; return [X + R + Math.cos(a) * R, Y + R + Math.sin(a) * R]; };
+  const head = ((t / 4.02) + .33) % 1, LEN = .38;
+  const lit = (k) => { const d = ((head - k / N) % 1 + 1) % 1; return d > LEN ? 0 : Math.sin(Math.PI * (1 - d / LEN)) ** 1.4 * (d < LEN * .1 ? d / (LEN * .1) : 1); };
+  // the glow follows the light outward
+  c.save(); c.lineCap = 'round'; c.shadowColor = 'rgba(255,255,255,.9)'; c.shadowBlur = 24;
+  for (let k = 0; k < N; k += 3) { const a = lit(k); if (a < .02) continue; const [x0, y0] = pt(k), [x1, y1] = pt((k + 3) % N); c.strokeStyle = `rgba(255,255,255,${(a * .35).toFixed(3)})`; c.lineWidth = 14; c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke(); }
+  c.restore();
+  const pill = new Path2D(); pill.roundRect(X, Y, PW, PH, R);
+  c.fillStyle = '#0f0f0f'; c.fill(pill); c.lineWidth = BW; c.strokeStyle = '#3d3d3d'; c.stroke(pill);
+  c.lineCap = 'round';
+  for (let k = 0; k < N; k++) { const a = lit(k); if (a < .01) continue; const [x0, y0] = pt(k), [x1, y1] = pt((k + 1) % N); c.strokeStyle = `rgba(255,255,255,${a.toFixed(3)})`; c.lineWidth = BW + .6; c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke(); }
+  c.font = font(600, Math.round(PH * .34)); c.fillStyle = '#fff'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('Request access', X + PW / 2, Y + PH / 2 + 1); c.textBaseline = 'alphabetic';
+});
+
+/* 05 · construction arcs: four walls drafted on paper, the ring turning slowly */
+const WALLS = ['Licences', 'Identity', 'Bank rails', 'Regulators'];
+live(document.getElementById('c-arcs'), (W) => W < 640 ? 300 : 420, (c, t, W, H) => {
+  c.fillStyle = '#E6E6E6'; c.fillRect(0, 0, W, H);
+  const Rm = W * 1.25, bt = H * .44, RI = Rm - bt / 2, RO = Rm + bt / 2, CX = W / 2, CY = H * .58 - Rm;
+  const at = (r, a) => [CX + Math.cos(a) * r, CY + Math.sin(a) * r];
+  c.strokeStyle = '#111'; c.lineWidth = 1.4;
+  [RI, RO].forEach((r) => { c.beginPath(); c.arc(CX, CY, r, Math.PI / 2 - 1, Math.PI / 2 + 1); c.stroke(); });
+  const sp = (W * .205) / Rm, gap = 7 / Rm;
+  const turn = .18 * (1 - E.o3(clamp(t / .9))) - .012 * Math.sin(t * .35);
+  const draw = seg(t, .06, .4, E.o3), ink = seg(t, .2, .62, E.io3);
+  const a0 = Math.PI / 2 + 2 * sp + 2.5 * gap + turn;       // the left edge; angles grow to the left on screen
+  const hs = W < 640 ? 7 : 9;
+  for (let i = 0; i <= 4; i++) {
+    const b = a0 - i * (sp + gap);
+    [b, b - gap].forEach((ang) => {
+      const p = at(RO, ang), q = at(RI, ang), e = [lerp(p[0], q[0], draw), lerp(p[1], q[1], draw)];
+      c.beginPath(); c.moveTo(p[0], p[1]); c.lineTo(e[0], e[1]); c.stroke();
+      c.fillStyle = '#111'; if (draw > .02) c.fillRect(p[0] - hs / 2, p[1] - hs / 2, hs, hs); if (draw > .97) c.fillRect(q[0] - hs / 2, q[1] - hs / 2, hs, hs);
+    });
+  }
+  c.font = font(600, 36); const fz = Math.min(36, Math.floor(36 * (W * .17) / c.measureText('Regulators').width));
+  WALLS.forEach((wd, i) => {
+    const mid = a0 - gap - i * (sp + gap) - sp / 2, [x, y] = at((RI + RO) / 2, mid);
+    const g = Math.round(lerp(170, 17, ink));
+    c.save(); c.translate(x, y); c.rotate(mid - Math.PI / 2); c.fillStyle = `rgba(${g},${g},${g},${clamp(draw * 2)})`; c.font = font(600, fz); c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(wd, 0, 0); c.restore();
+  });
+  c.textBaseline = 'alphabetic';
+});
+
+/* 22 · the slider and its Drag cursor */
+(() => {
+  const sl = document.getElementById('slider'), tr = sl.querySelector('.track'), cur = sl.querySelector('.drag');
+  let x = 0, start = 0, sx = 0, down = false, moved = false;
+  const max = () => Math.max(0, tr.scrollWidth - sl.clientWidth);
+  const snap = () => { const xs = [...tr.children].map((n) => n.offsetLeft); let best = 0; xs.forEach((v) => { if (Math.abs(v - x) < Math.abs(best - x)) best = v; }); x = Math.min(max(), best); tr.style.transform = `translateX(${-x}px)`; };
+  sl.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') sl.classList.add('hov'); });
+  sl.addEventListener('pointerleave', () => sl.classList.remove('hov'));
+  sl.addEventListener('pointermove', (e) => {
+    const r = sl.getBoundingClientRect(); cur.style.left = (e.clientX - r.left) + 'px'; cur.style.top = (e.clientY - r.top) + 'px';
+    if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 3) moved = true;
+    x = Math.max(-80, Math.min(max() + 80, start - dx)); tr.style.transform = `translateX(${-x}px)`;
+  });
+  sl.addEventListener('pointerdown', (e) => { down = true; moved = false; sx = e.clientX; start = x; tr.classList.add('dragging'); sl.setPointerCapture(e.pointerId); });
+  const up = () => { if (!down) return; down = false; tr.classList.remove('dragging'); snap(); };
+  sl.addEventListener('pointerup', up); sl.addEventListener('pointercancel', up);
+  sl.addEventListener('click', (e) => { if (moved) e.preventDefault(); }, true);
+  addEventListener('resize', snap);
+})();
+
+
+/* 15 · the tile wall, now real: square tiles of each product's own screens and recordings */
+(() => {
+  const host = document.getElementById('pwall'); if (!host) return;
+  // [video or still, file, crop, extra]
+  const WALLS = [
+    { id: 'orbit', logo: 'img/olie-orbit-logo.svg', tiles: [['v', 'm-orbit-send', '50% 24%'], ['v', 'm-orbit-split', '50% 30%'], ['s', 'orbit-home.jpg', 'still'], ['v', 'm-orbit-welcome', '50% 38%'], ['v', 'm-orbit-settle', '50% 24%'], ['s', 'orbit-group.jpg', 'still'], ['v', 'm-orbit-receipt', '50% 32%'], ['s', 'orbit-activity.jpg', 'still']] },
+    { id: 'vault', logo: 'img/olie-vault-logo.svg', tiles: [['v', 'm-vault-orb', '50% 42%'], ['v', 'm-vault-grow', '50% 30%'], ['v', 'm-vault-name', '50% 14%'], ['s', 'vault-chart.jpg', 'still'], ['v', 'm-vault-transfer', '50% 26%'], ['s', 'vault-transfer-stream.jpg', 'still'], ['v', 'm-vault-result', '50% 30%'], ['s', 'vault-orb-mid.jpg', 'still']] },
+    // Olie Business: eight loops cut from the real portal in the Olie Business demo film
+    { id: 'biz', logo: 'img/olie-business-logo.svg', tiles: [['v', 'bz-home', '50% 50%'], ['v', 'bz-link', '50% 50%'], ['v', 'bz-keypad', '50% 50%'], ['v', 'bz-sent', '50% 50%'], ['v', 'bz-qr', '50% 50%'], ['v', 'bz-invite', '50% 50%'], ['v', 'bz-deposit', '50% 50%'], ['v', 'bz-audit', '50% 50%']] },
+  ];
+  const layers = WALLS.map((w) => {
+    const L = document.createElement('div'); L.className = 'pw-layer pw-' + w.id;
+    L.innerHTML = `<img class="pw-logo" src="${w.logo}" alt="">` + w.tiles.map(([k, f, a, b]) => k === 'v'
+      ? `<div class="pw-t"><video muted loop playsinline preload="none" poster="img/${f}.jpg" src="img/${f}.mp4" style="object-position:${a}${b ? `;transform:scale(1.85);transform-origin:${b}` : ''}"></video></div>`
+      : `<div class="pw-t"><img src="img/${f}" alt="" loading="lazy" style="object-position:50% 12%"></div>`).join('');
+    host.appendChild(L); return L;
+  });
+  const band = document.createElement('div'); band.className = 'pw-band'; host.appendChild(band);
+  const vids = (L) => [...L.querySelectorAll('video')];
+  const play = (L) => vids(L).forEach((v) => { v.preload = 'auto'; v.play().catch(() => {}); });
+  const stop = (L) => vids(L).forEach((v) => v.pause());
+  const HOLD = 4.8, WIPE = 1.0;
+  let cur = 0, on = false, t0 = null, raf = 0;
+  layers[0].classList.add('on');
+  const clip = (p) => { const a = p * 135 - 10; return `polygon(-20% 0, ${a}% 0, ${a - 25}% 100%, -20% 100%)`; };
+  const frame = (now) => {
+    if (!on) return; if (t0 == null) t0 = now;
+    const el = (now - t0) / 1000;
+    if (el < HOLD) { raf = requestAnimationFrame(frame); return; }
+    const nx = (cur + 1) % layers.length, N = layers[nx];
+    if (!N.classList.contains('on')) { N.classList.add('on'); N.style.zIndex = 3; layers[cur].style.zIndex = 1; play(N); band.style.display = 'block'; }
+    const p = E.io3(clamp((el - HOLD) / WIPE));
+    N.style.clipPath = clip(p); band.style.left = (p * 135 - 22) + '%';
+    if (p >= 1) { N.style.clipPath = 'none'; layers[cur].classList.remove('on'); stop(layers[cur]); band.style.display = 'none'; cur = nx; t0 = now; }
+    raf = requestAnimationFrame(frame);
+  };
+  new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting && !reduce) { if (!on) { on = true; play(layers[cur]); t0 = null; raf = requestAnimationFrame(frame); } }
+    else { on = false; cancelAnimationFrame(raf); layers.forEach(stop); }
+  }), { threshold: .25 }).observe(host);
+})();
+
+</script>
+</body>
+</html>
